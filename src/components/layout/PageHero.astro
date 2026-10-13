@@ -1,0 +1,53 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  image?: string;
+  align?: 'center' | 'left';
+}
+
+const { eyebrow, title, subtitle, image, align = 'center' } = Astro.props;
+
+const alignment =
+  align === 'center' ? 'text-center items-center' : 'text-left items-start';
+---
+
+<section
+  class='relative overflow-hidden bg-secondary text-white'
+  style={image
+    ? `background-image: linear-gradient(rgba(18, 82, 118, 0.82), rgba(18, 82, 118, 0.9)), url('${image}'); background-size: cover; background-position: center;`
+    : undefined}>
+  {
+    !image && (
+      <div
+        class='absolute inset-0 bg-gradient-to-br from-secondary to-primary opacity-95'
+        aria-hidden='true'
+      />
+    )
+  }
+
+  <div class='relative container-prose py-16 md:py-24'>
+    <div class={`max-w-3xl mx-auto flex flex-col ${alignment}`}>
+      {
+        eyebrow && (
+          <p class='text-xs font-bold uppercase tracking-[0.16em] text-gold mb-4'>
+            {eyebrow}
+          </p>
+        )
+      }
+      <h1
+        class='text-3xl md:text-5xl font-bold text-white leading-tight mb-4 text-balance'>
+        {title}
+      </h1>
+      {
+        subtitle && (
+          <p class='text-base md:text-lg text-white/85 leading-relaxed text-pretty'>
+            {subtitle}
+          </p>
+        )
+      }
+      <slot />
+    </div>
+  </div>
+</section>

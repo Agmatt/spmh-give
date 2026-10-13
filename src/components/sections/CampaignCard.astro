@@ -1,0 +1,72 @@
+---
+import { formatKes, type Campaign } from '../../data/campaigns';
+
+interface Props {
+  campaign: Campaign;
+}
+const { campaign: c } = Astro.props;
+const pct =
+  c.target > 0 ? Math.min(100, Math.round((c.raised / c.target) * 100)) : 0;
+const showProgress = c.raised > 0;
+---
+
+<a
+  href={`/campaigns/${c.slug}`}
+  class='group flex flex-col rounded-2xl border border-border bg-white overflow-hidden hover:shadow-lg transition-shadow'>
+  <div class='aspect-[16/9] bg-surface-2 overflow-hidden'>
+    <img
+      src={c.image}
+      alt={c.imageAlt}
+      class='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
+      loading='lazy'
+    />
+  </div>
+  <div class='p-6 flex-1 flex flex-col'>
+    <span
+      class:list={[
+        'inline-block self-start px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider rounded-full mb-4',
+        c.status === 'active' && 'bg-primary text-white',
+        c.status === 'planning' && 'bg-surface-2 text-secondary',
+        c.status === 'completed' && 'bg-green-100 text-green-800',
+      ]}>
+      {c.status === 'active' && 'Fundraising'}
+      {c.status === 'planning' && 'Coming soon'}
+      {c.status === 'completed' && 'Completed'}
+    </span>
+
+    <h3 class='font-display text-lg font-bold mb-2'>{c.name}</h3>
+    <p class='text-sm text-slate-600 leading-relaxed mb-4 flex-1'>
+      {c.summary}
+    </p>
+
+    {
+      showProgress ? (
+        <div>
+          <div class='flex justify-between items-center mb-2'>
+            <span class='text-xs font-semibold text-muted uppercase tracking-wide'>
+              Funded
+            </span>
+            <span class='text-sm font-bold text-primary'>{pct}%</span>
+          </div>
+          <div class='w-full bg-surface-2 rounded-full h-2 overflow-hidden'>
+            <div
+              class='h-full bg-gradient-to-r from-primary to-secondary rounded-full'
+              style={`width: ${pct}%`}
+            />
+          </div>
+          <p class='text-xs text-muted mt-2'>
+            {formatKes(c.raised)} raised of
+            <span class='font-mono'>{formatKes(c.target)}</span>
+          </p>
+        </div>
+      ) : (
+        <p class='text-xs text-muted'>
+          Goal:
+          <span class='font-mono font-semibold text-primary'>
+            {formatKes(c.target)}
+          </span>
+        </p>
+      )
+    }
+  </div>
+</a>

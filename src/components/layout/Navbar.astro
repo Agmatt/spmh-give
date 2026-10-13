@@ -63,79 +63,179 @@ const isActive = (href: string) =>
         <button
           type='button'
           id='nav-toggle'
-          class='lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-primary hover:bg-surface-2'
+          class='lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-primary hover:bg-surface-2 transition-colors'
           aria-label='Open menu'
           aria-expanded='false'
-          aria-controls='mobile-menu'>
+          aria-controls='mobile-drawer'>
           <svg
+            id='icon-menu'
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
             stroke-width='2'
             stroke='currentColor'
-            class='w-6 h-6'>
+            class='w-6 h-6'
+            aria-hidden='true'>
             <path
               stroke-linecap='round'
               stroke-linejoin='round'
               d='M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5'></path>
           </svg>
+
+          <svg
+            id='icon-close'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            stroke-width='2'
+            stroke='currentColor'
+            class='w-6 h-6 hidden'
+            aria-hidden='true'>
+            <path
+              stroke-linecap='round'
+              stroke-linejoin='round'
+              d='M6 18 18 6M6 6l12 12'></path>
+          </svg>
         </button>
       </div>
     </div>
   </div>
-
-  <!-- Mobile menu -->
-  <div
-    id='mobile-menu'
-    class='lg:hidden hidden border-t border-border bg-white'
-    role='dialog'
-    aria-modal='true'
-    aria-label='Site menu'>
-    <nav class='container-prose py-4 flex flex-col gap-1' aria-label='Mobile'>
-      {
-        primaryNav.map((item) => (
-          <a
-            href={item.href}
-            class:list={[
-              'px-3 py-3 rounded-lg text-base font-medium',
-              isActive(item.href)
-                ? 'text-primary bg-surface-2'
-                : 'text-slate-700 hover:text-primary hover:bg-surface-2',
-            ]}>
-            {item.label}
-          </a>
-        ))
-      }
-      <a href={ctaNav.href} class='btn-primary mt-3 w-full'>
-        {ctaNav.label}
-      </a>
-    </nav>
-  </div>
 </header>
+
+<!--
+  IMPORTANT: backdrop + drawer MUST live OUTSIDE <header>.
+  The header uses `backdrop-blur`, which creates a containing block for
+  `position: fixed` descendants. If these elements are nested inside the
+  header, `fixed` will anchor to the header, not the viewport, and
+  `h-full` will collapse to the header's height.
+-->
+
+<!-- Backdrop -->
+<div
+  id='nav-backdrop'
+  class='fixed inset-0 z-40 bg-slate-900/50 opacity-0 pointer-events-none transition-opacity duration-300 ease-out lg:hidden'
+  aria-hidden='true'>
+</div>
+
+<!-- Drawer (slides in from the right) -->
+<aside
+  id='mobile-drawer'
+  class='fixed top-0 right-0 z-50 h-full w-80 max-w-[85vw] bg-white shadow-2xl translate-x-full transition-transform duration-300 ease-out lg:hidden flex flex-col'
+  role='dialog'
+  aria-modal='true'
+  aria-label='Site menu'
+  aria-hidden='true'
+  inert>
+  <!-- Drawer header -->
+  <div
+    class='flex items-center justify-between px-5 h-16 border-b border-border shrink-0'>
+    <span class='font-display font-semibold text-primary'>
+      {site.shortName}
+      <span class='text-accent'>Give</span>
+    </span>
+    <button
+      type='button'
+      id='nav-close'
+      class='inline-flex items-center justify-center w-9 h-9 rounded-lg text-slate-600 hover:bg-surface-2 hover:text-primary transition-colors'
+      aria-label='Close menu'>
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke-width='2'
+        stroke='currentColor'
+        class='w-5 h-5'
+        aria-hidden='true'>
+        <path
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M6 18 18 6M6 6l12 12'></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Nav links -->
+  <nav class='flex-1 overflow-y-auto px-3 py-4' aria-label='Mobile'>
+    {
+      primaryNav.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'block px-4 py-3 rounded-lg text-base font-medium transition-colors',
+            isActive(item.href)
+              ? 'text-primary bg-surface-2'
+              : 'text-slate-700 hover:text-primary hover:bg-surface-2',
+          ]}
+          aria-current={isActive(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <!-- Drawer footer -->
+  <div class='p-4 border-t border-border shrink-0 space-y-2'>
+    <a href={ctaNav.href} class='btn-primary w-full'>
+      {ctaNav.label}
+    </a>
+    <a href={`mailto:${site.givingEmail}`} class='btn-secondary w-full'>
+      Contact giving team
+    </a>
+  </div>
+</aside>
 
 <script>
   const toggle = document.getElementById('nav-toggle');
-  const menu = document.getElementById('mobile-menu');
+  const closeBtn = document.getElementById('nav-close');
+  const drawer = document.getElementById('mobile-drawer');
+  const backdrop = document.getElementById('nav-backdrop');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
 
-  if (toggle && menu) {
-    const setOpen = (open: boolean) => {
-      menu.classList.toggle('hidden', !open);
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  if (toggle && drawer && backdrop) {
+    let isOpen = false;
+
+    const setOpen = (next: boolean) => {
+      if (next === isOpen) return;
+      isOpen = next;
+
+      drawer.classList.toggle('translate-x-full', !isOpen);
+      drawer.setAttribute('aria-hidden', String(!isOpen));
+      if (isOpen) {
+        drawer.removeAttribute('inert');
+      } else {
+        drawer.setAttribute('inert', '');
+      }
+
+      backdrop.classList.toggle('opacity-0', !isOpen);
+      backdrop.classList.toggle('pointer-events-none', !isOpen);
+
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      iconMenu?.classList.toggle('hidden', isOpen);
+      iconClose?.classList.toggle('hidden', !isOpen);
+
+      document.body.classList.toggle('overflow-hidden', isOpen);
     };
 
-    toggle.addEventListener('click', () => {
-      setOpen(menu.classList.contains('hidden'));
+    toggle.addEventListener('click', () => setOpen(!isOpen));
+    closeBtn?.addEventListener('click', () => setOpen(false));
+    backdrop.addEventListener('click', () => setOpen(false));
+
+    drawer.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
     });
 
-    // Close on link click
-    menu
-      .querySelectorAll('a')
-      .forEach((a) => a.addEventListener('click', () => setOpen(false)));
-
-    // Close on Escape
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Escape' && isOpen) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    const mq = window.matchMedia('(min-width: 1024px)');
+    mq.addEventListener('change', (e) => {
+      if (e.matches && isOpen) setOpen(false);
     });
   }
 </script>

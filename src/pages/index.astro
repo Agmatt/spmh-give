@@ -1,18 +1,360 @@
 ---
 import LandingLayout from '../layout/LandingLayout.astro';
+import CampaignCard from '../components/sections/CampaignCard.astro';
+import { sortedCampaigns } from '../data/campaigns';
+import {
+  institutionalNumbers,
+  impactTeasers,
+  allocation,
+  trustSignals,
+} from '../data/impact';
+import { site } from '../data/site';
+
+const featured = sortedCampaigns[0];
+const others = sortedCampaigns.slice(1);
 ---
 
 <LandingLayout
   title='Give'
-  description="Support St. Paul's Mission Hospital — Homa Bay. M-Pesa, card, and bank giving for ICU, maternity, diagnostics, and outreach.">
-  <section class='container-prose py-20 md:py-28 text-center'>
-    <p class='eyebrow mb-3'>Foundation deployed</p>
-    <h1 class='text-4xl md:text-6xl font-bold mb-5 text-balance'>
-      Give to SPMH
-    </h1>
-    <p class='text-lg text-slate-600 max-w-2xl mx-auto mb-8 text-pretty'>
-      The donation platform scaffold is live. The giving flow arrives in Wave 3.
-    </p>
-    <a href='/donate' class='btn-primary'>Continue to giving</a>
+  description={`Give to ${site.name}. Help build the ICU, theatres, and diagnostics that 250,000 people in Homa Bay County depend on.`}>
+  <!-- ============================================================
+       HERO — human, honest, urgent
+  ============================================================= -->
+  <section class='relative overflow-hidden bg-secondary text-white'>
+    <div
+      class='absolute inset-0 bg-gradient-to-br from-secondary via-secondary to-primary opacity-95'
+      aria-hidden='true'>
+    </div>
+
+    <div class='relative container-prose py-20 md:py-32'>
+      <div class='max-w-3xl'>
+        <p class='text-xs font-bold uppercase tracking-[0.18em] text-gold mb-6'>
+          St. Paul&rsquo;s Mission Hospital &middot; Homa Bay
+        </p>
+
+        <h1
+          class='font-display text-4xl md:text-6xl font-bold text-white leading-[1.05] tracking-tight mb-6 text-balance'>
+          Some patients arrive at our door who we cannot save.
+          <span class='text-gold'>Not yet.</span>
+        </h1>
+
+        <p
+          class='text-lg md:text-xl text-white/85 leading-relaxed mb-8 max-w-2xl text-pretty'>
+          We serve 250,000 people in Homa Bay County — mothers, children,
+          fishermen, farmers, families. Every day, our team does extraordinary
+          work with what we have. But when a patient needs intensive care,
+          advanced surgery, or a diagnosis we can&rsquo;t give them here, we
+          send them away. Sometimes they don&rsquo;t make it back.
+        </p>
+
+        <p
+          class='text-base md:text-lg text-white/75 leading-relaxed mb-10 max-w-2xl'>
+          With your help, that changes.
+        </p>
+
+        <div class='flex flex-wrap gap-3'>
+          <a
+            href='/donate'
+            class='btn-primary !bg-gold !text-secondary hover:!bg-white'>
+            Give today
+          </a>
+          <a
+            href='#campaigns'
+            class='inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border-2 border-white/40 text-white font-semibold text-sm hover:bg-white hover:text-secondary transition-colors duration-300'>
+            See what we&rsquo;re building
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       THE REALITY — four numbers that tell the whole story
+  ============================================================= -->
+  <section class='bg-white border-b border-border'>
+    <div class='container-prose py-12 md:py-16'>
+      <div class='grid gap-8 sm:grid-cols-2 lg:grid-cols-4'>
+        {
+          institutionalNumbers.map((n, i) => (
+            <div
+              class:list={[
+                'flex flex-col',
+                i === 3 && 'sm:col-span-2 lg:col-span-1',
+              ]}>
+              <p
+                class:list={[
+                  'font-display text-4xl md:text-5xl font-bold mb-2 leading-none',
+                  n.value === '0' ? 'text-accent' : 'text-primary',
+                ]}>
+                {n.value}
+              </p>
+              <p class='text-sm font-semibold text-slate-900 mb-1'>{n.label}</p>
+              <p class='text-xs text-muted leading-relaxed'>{n.context}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CAMPAIGNS — the ask, front and centre
+  ============================================================= -->
+  <section id='campaigns' class='bg-surface py-16 md:py-24'>
+    <div class='container-prose'>
+      <div class='max-w-2xl mb-12'>
+        <p class='eyebrow mb-3'>What we&rsquo;re building</p>
+        <h2 class='text-3xl md:text-4xl font-bold mb-4 text-balance'>
+          Five things that would change everything.
+        </h2>
+        <p class='text-slate-600 leading-relaxed text-pretty'>
+          These aren&rsquo;t abstract projects. Each one closes a gap that we
+          feel every single week — a mother, a child, a neighbour who needed
+          something we couldn&rsquo;t give them here.
+        </p>
+      </div>
+
+      <!-- Featured campaign — ICU, the flagship -->
+      <a
+        href={`/campaigns/${featured.slug}`}
+        class='group block rounded-2xl overflow-hidden border border-border bg-white hover:shadow-xl transition-shadow mb-8'>
+        <div class='grid md:grid-cols-2'>
+          <div
+            class='aspect-[4/3] md:aspect-auto md:min-h-[360px] bg-surface-2 overflow-hidden'>
+            <img
+              src={featured.image}
+              alt={featured.imageAlt}
+              class='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700'
+              loading='eager'
+            />
+          </div>
+          <div class='p-8 md:p-10 flex flex-col justify-center'>
+            <span
+              class='inline-block self-start px-3 py-1 text-[11px] font-bold uppercase tracking-wider rounded-full bg-accent text-white mb-4'>
+              Most urgent need
+            </span>
+            <h3 class='font-display text-2xl md:text-3xl font-bold mb-3'>
+              {featured.name}
+            </h3>
+            <p class='text-slate-600 leading-relaxed mb-5 text-pretty'>
+              {featured.summary}
+            </p>
+            <p class='text-sm text-muted mb-6'>
+              Goal: <span class='font-mono font-semibold text-primary'
+                >KES {featured.target.toLocaleString('en-KE')}</span
+              >
+            </p>
+            <span class='btn-primary self-start'>Fund this campaign →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Other campaigns -->
+      <div class='grid gap-6 md:grid-cols-2'>
+        {others.map((c) => <CampaignCard campaign={c} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       IMPACT — what a gift actually does
+  ============================================================= -->
+  <section class='bg-white py-16 md:py-24'>
+    <div class='container-prose'>
+      <div class='max-w-2xl mb-12'>
+        <p class='eyebrow mb-3'>Your gift at work</p>
+        <h2 class='text-3xl md:text-4xl font-bold mb-4 text-balance'>
+          Every shilling has a purpose.
+        </h2>
+        <p class='text-slate-600 leading-relaxed text-pretty'>
+          Not vague promises. These are real services, real costs, and real
+          lives at SPMH.
+        </p>
+      </div>
+
+      <div class='grid gap-5 sm:grid-cols-2 lg:grid-cols-4'>
+        {
+          impactTeasers.map((t) => (
+            <div class='rounded-2xl border border-border bg-surface p-6 flex flex-col'>
+              <p class='font-display text-3xl font-bold text-primary mb-3'>
+                {t.amount}
+              </p>
+              <p class='text-sm text-slate-700 leading-relaxed flex-1'>
+                {t.impact}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class='text-sm text-muted mt-8 text-center'>
+        Want to give a specific amount? <a
+          href='/donate'
+          class='text-primary underline font-semibold'
+          >Head to the donate page</a
+        > or set up monthly giving.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHERE THE MONEY GOES — quiet accountability
+  ============================================================= -->
+  <section class='bg-surface py-16 md:py-24'>
+    <div class='container-prose'>
+      <div class='grid gap-12 md:grid-cols-5 items-center'>
+        <div class='md:col-span-2'>
+          <p class='eyebrow mb-3'>Where the money goes</p>
+          <h2 class='text-3xl md:text-4xl font-bold mb-5 text-balance'>
+            You have a right to know.
+          </h2>
+          <p class='text-slate-600 leading-relaxed mb-6 text-pretty'>
+            Kenya has seen real donation fraud. We take that seriously. Every
+            gift is receipted, every shilling is tracked, and our accounts are
+            audited and published annually.
+          </p>
+          <a href='/annual-reports' class='btn-secondary'> Read our reports </a>
+        </div>
+
+        <div class='md:col-span-3 space-y-5'>
+          {
+            allocation.map((a) => (
+              <div>
+                <div class='flex items-baseline justify-between mb-2'>
+                  <span class='text-sm font-semibold text-slate-900'>
+                    {a.label}
+                  </span>
+                  <span class='font-display text-xl font-bold text-primary'>
+                    {a.percentage}%
+                  </span>
+                </div>
+                <div class='w-full bg-white rounded-full h-2.5 overflow-hidden border border-border'>
+                  <div
+                    class='h-full bg-gradient-to-r from-primary to-secondary rounded-full'
+                    style={`width: ${a.percentage}%`}
+                  />
+                </div>
+                <p class='text-xs text-muted mt-2 leading-relaxed'>
+                  {a.description}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHY SPMH — trust, but earned
+  ============================================================= -->
+  <section class='bg-white py-16 md:py-24'>
+    <div class='container-prose'>
+      <div class='max-w-2xl mb-12'>
+        <p class='eyebrow mb-3'>Why SPMH</p>
+        <h2 class='text-3xl md:text-4xl font-bold mb-4 text-balance'>
+          A hospital you can stand behind.
+        </h2>
+      </div>
+
+      <div class='grid gap-10 md:grid-cols-3'>
+        {
+          trustSignals.map((s) => (
+            <div class='flex flex-col'>
+              <div class='inline-flex items-center justify-center w-12 h-12 rounded-xl bg-surface-2 text-primary mb-5'>
+                {s.icon === 'cross' && (
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    stroke-width='2'
+                    class='w-6 h-6'>
+                    <path
+                      stroke-linecap='round'
+                      stroke-linejoin='round'
+                      d='M12 3v18M6 9h12'
+                    />
+                  </svg>
+                )}
+                {s.icon === 'eye' && (
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    stroke-width='2'
+                    class='w-6 h-6'>
+                    <path
+                      stroke-linecap='round'
+                      stroke-linejoin='round'
+                      d='M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z'
+                    />
+                    <circle cx='12' cy='12' r='3' />
+                  </svg>
+                )}
+                {s.icon === 'location' && (
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    stroke-width='2'
+                    class='w-6 h-6'>
+                    <path
+                      stroke-linecap='round'
+                      stroke-linejoin='round'
+                      d='M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z'
+                    />
+                    <circle cx='12' cy='10' r='3' />
+                  </svg>
+                )}
+              </div>
+              <h3 class='font-display text-lg font-bold mb-2'>{s.title}</h3>
+              <p class='text-sm text-slate-600 leading-relaxed'>
+                {s.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FINAL CTA — clear and quiet
+  ============================================================= -->
+  <section class='bg-secondary text-white'>
+    <div class='container-prose py-20 md:py-28 text-center'>
+      <h2
+        class='font-display text-3xl md:text-5xl font-bold text-white mb-5 text-balance max-w-3xl mx-auto'>
+        Help us be the hospital Homa Bay deserves.
+      </h2>
+      <p class='text-lg text-white/80 max-w-2xl mx-auto mb-10 text-pretty'>
+        Whether it&rsquo;s KES 500 or KES 500,000 — every gift closes a gap that
+        a patient feels today.
+      </p>
+      <div class='flex flex-wrap gap-3 justify-center'>
+        <a
+          href='/donate'
+          class='btn-primary !bg-gold !text-secondary hover:!bg-white'>
+          Give now
+        </a>
+        <a
+          href='/contact-giving'
+          class='inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border-2 border-white/40 text-white font-semibold text-sm hover:bg-white hover:text-secondary transition-colors duration-300'>
+          Talk to our giving team
+        </a>
+      </div>
+
+      <p class='text-xs text-white/50 mt-10 max-w-lg mx-auto'>
+        By donating, you agree to our
+        <a href='/terms-of-giving' class='underline hover:text-white'
+          >Terms of Giving</a
+        > and
+        <a href='/privacy' class='underline hover:text-white'>Privacy Policy</a
+        >.
+      </p>
+    </div>
   </section>
 </LandingLayout>
