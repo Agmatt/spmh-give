@@ -1,0 +1,109 @@
+---
+import { site } from '../../data/site';
+import { footerColumns, footerLegal } from '../../data/footer';
+
+const year = new Date().getFullYear();
+---
+
+<footer class='bg-secondary text-white mt-24'>
+  <div class='container-prose py-14 md:py-20'>
+    <div class='grid gap-10 md:grid-cols-4'>
+      <!-- Brand + mission -->
+      <div class='md:col-span-1'>
+        <div class='flex items-center gap-3 mb-5'>
+          <img
+            src='/logos/logo.png'
+            alt=''
+            class='h-10 w-10'
+            width='40'
+            height='40'
+          />
+          <span class='font-display font-semibold text-lg'>
+            {site.shortName}
+            <span class='text-gold'>Give</span>
+          </span>
+        </div>
+        <p class='text-sm text-white/80 leading-relaxed mb-5'>
+          A faith-based Level 4 mission hospital under the Catholic Diocese of
+          Homa Bay, serving ~250,000 people. Your gift funds the pathway to
+          Level 5 care by 2030.
+        </p>
+        <p class='text-xs text-white/60'>
+          KRA PIN: <span class='font-mono'>{site.kraPin}</span>
+        </p>
+      </div>
+
+      <!-- Link columns -->
+      {
+        footerColumns.map((col) => (
+          <div>
+            <h3 class='text-white text-sm font-semibold uppercase tracking-wider mb-4'>
+              {col.heading}
+            </h3>
+            <ul class='space-y-2.5'>
+              {col.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class='text-sm text-white/80 hover:text-gold transition-colors'>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Contact + legal -->
+    <div class='mt-12 pt-8 border-t border-white/15 grid gap-6 md:grid-cols-2'>
+      <div class='text-sm text-white/80 space-y-1.5'>
+        <p>
+          <span class='text-white/60'>Giving enquiries:</span>{' '}
+          <a
+            href={`mailto:${site.givingEmail}`}
+            class='text-gold hover:underline'>
+            {site.givingEmail}
+          </a>
+        </p>
+        <p>
+          <span class='text-white/60'>Data Protection Officer:</span>{' '}
+          <a href={`mailto:${site.dpoEmail}`} class='text-gold hover:underline'>
+            {site.dpoEmail}
+          </a>
+        </p>
+        <p class='text-white/60'>
+          {site.address.physical} · {site.address.postal}
+        </p>
+      </div>
+
+      <nav
+        aria-label='Legal'
+        class='flex flex-wrap gap-x-6 gap-y-2 md:justify-end text-sm'>
+        {
+          footerLegal.map((link) => (
+            <a
+              href={link.href}
+              class='text-white/80 hover:text-gold transition-colors'>
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+
+    <!-- Bottom bar -->
+    <div
+      class='mt-10 pt-6 border-t border-white/15 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-white/60'>
+      <p>
+        © {year}
+        {site.legalName}. All rights reserved.
+      </p>
+      <p>
+        Registered in Kenya · Donations processed securely via M-Pesa, Stripe,
+        and PayPal.
+      </p>
+    </div>
+  </div>
+</footer>

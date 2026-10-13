@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Brand colours */
+  --color-primary: #1565c0;
+  --color-primary-dark: #0d47a1;
+  --color-primary-light: #90caf9;
+  --color-secondary: #125276;
+  --color-accent: #860f0f;
+  --color-gold: #c8a951;
+
+  /* Surfaces */
+  --color-surface: #f4f8ff;
+  --color-surface-2: #e8f0fc;
+  --color-muted: #5a6f8c;
+  --color-border: #c5d8f7;
+
+  /* Typography */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Radii */
+  --radius-card: 0.75rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: #1e293b;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-primary);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-secondary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+           text-white bg-primary hover:bg-secondary font-semibold text-sm
+           transition-colors duration-300 shadow-sm;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+           border-2 border-secondary text-secondary hover:bg-secondary hover:text-white
+           font-semibold text-sm transition-colors duration-300;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+           bg-accent text-white hover:opacity-90 font-semibold text-sm
+           transition-opacity duration-300 shadow-sm;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg
+           text-primary hover:bg-surface-2 font-medium text-sm
+           transition-colors duration-200;
+  }
+
+  .container-prose {
+    @apply max-w-5xl mx-auto px-6;
+  }
+
+  .container-narrow {
+    @apply max-w-3xl mx-auto px-6;
+  }
+
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.14em] text-accent;
+  }
+
+  .rule-accent {
+    @apply h-1 w-14 bg-accent rounded;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}

@@ -1,0 +1,59 @@
+---
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/plus-jakarta-sans';
+import '@fontsource/ibm-plex-mono/400.css';
+import '../styles/global.css';
+
+import BaseHead from '../components/layout/BaseHead.astro';
+import Navbar from '../components/layout/Navbar.astro';
+import Footer from '../components/layout/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  hideChrome?: boolean;
+}
+
+const {
+  title,
+  description,
+  image,
+  canonical,
+  noindex = false,
+  jsonLd,
+  hideChrome = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang='en-KE'>
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      canonical={canonical}
+      noindex={noindex}
+      jsonLd={jsonLd}
+    />
+  </head>
+  <body class='min-h-screen flex flex-col'>
+    <a
+      href='#main'
+      class='sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-white focus:text-primary focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg'>
+      Skip to content
+    </a>
+
+    {!hideChrome && <Navbar />}
+
+    <main id='main' class='flex-1'>
+      <slot />
+    </main>
+
+    {!hideChrome && <Footer />}
+  </body>
+</html>

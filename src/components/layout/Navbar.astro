@@ -1,0 +1,141 @@
+---
+import { site } from '../../data/site';
+import { primaryNav, ctaNav } from '../../data/nav';
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<header
+  class='sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-border'>
+  <div class='container-prose'>
+    <div class='flex items-center justify-between h-16 md:h-20'>
+      <!-- Brand -->
+      <a
+        href='/'
+        class='flex items-center gap-3 shrink-0'
+        aria-label={`${site.name} — Give`}>
+        <img
+          src='/logos/logo.png'
+          alt=''
+          class='h-9 w-9 md:h-10 md:w-10'
+          width='40'
+          height='40'
+        />
+        <span class='hidden sm:flex flex-col leading-tight'>
+          <span
+            class='font-display font-semibold text-primary text-base md:text-lg'>
+            {site.shortName}
+            <span class='text-accent'>Give</span>
+          </span>
+          <span class='text-[11px] uppercase tracking-wider text-muted'>
+            Homa Bay
+          </span>
+        </span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class='hidden lg:flex items-center gap-1' aria-label='Primary'>
+        {
+          primaryNav.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                'px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                isActive(item.href)
+                  ? 'text-primary bg-surface-2'
+                  : 'text-slate-700 hover:text-primary hover:bg-surface-2',
+              ]}
+              aria-current={isActive(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Desktop CTA + mobile toggle -->
+      <div class='flex items-center gap-2'>
+        <a href={ctaNav.href} class='hidden md:inline-flex btn-primary'>
+          {ctaNav.label}
+        </a>
+
+        <button
+          type='button'
+          id='nav-toggle'
+          class='lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-primary hover:bg-surface-2'
+          aria-label='Open menu'
+          aria-expanded='false'
+          aria-controls='mobile-menu'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            stroke-width='2'
+            stroke='currentColor'
+            class='w-6 h-6'>
+            <path
+              stroke-linecap='round'
+              stroke-linejoin='round'
+              d='M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5'></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id='mobile-menu'
+    class='lg:hidden hidden border-t border-border bg-white'
+    role='dialog'
+    aria-modal='true'
+    aria-label='Site menu'>
+    <nav class='container-prose py-4 flex flex-col gap-1' aria-label='Mobile'>
+      {
+        primaryNav.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'px-3 py-3 rounded-lg text-base font-medium',
+              isActive(item.href)
+                ? 'text-primary bg-surface-2'
+                : 'text-slate-700 hover:text-primary hover:bg-surface-2',
+            ]}>
+            {item.label}
+          </a>
+        ))
+      }
+      <a href={ctaNav.href} class='btn-primary mt-3 w-full'>
+        {ctaNav.label}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(menu.classList.contains('hidden'));
+    });
+
+    // Close on link click
+    menu
+      .querySelectorAll('a')
+      .forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+  }
+</script>

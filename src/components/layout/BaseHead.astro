@@ -1,0 +1,107 @@
+---
+import { site } from '../../data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description = "Support St. Paul's Mission Hospital — Homa Bay. Your gift funds ICU, maternity, diagnostics, and community outreach. M-Pesa, card, and bank giving.",
+  image = site.defaultOgImage,
+  canonical,
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const pageTitle = title.includes(site.shortName)
+  ? title
+  : `${title} — ${site.shortName}`;
+
+const canonicalUrl = canonical
+  ? new URL(canonical, site.url).toString()
+  : new URL(Astro.url.pathname, site.url).toString();
+
+const ogImage = image.startsWith('http')
+  ? image
+  : new URL(image, site.url).toString();
+
+const ldJson = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+
+// Organization is always present
+ldJson.unshift({
+  '@type': 'Organization',
+  '@id': `${site.url}/#organization`,
+  name: site.legalName,
+  url: site.mainSite,
+  logo: new URL('/logo.png', site.url).toString(),
+  email: site.givingEmail,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Homa Bay',
+    addressCountry: 'KE',
+  },
+  sameAs: Object.values(site.social).filter(Boolean),
+});
+---
+
+<meta charset='utf-8' />
+<meta
+  name='viewport'
+  content='width=device-width, initial-scale=1, viewport-fit=cover'
+/>
+<meta name='theme-color' content='#1565c0' />
+
+<title>{pageTitle}</title>
+<meta name='description' content={description} />
+
+<link rel='canonical' href={canonicalUrl} />
+{noindex && <meta name='robots' content='noindex, nofollow' />}
+
+<!-- Open Graph -->
+<meta property='og:type' content='website' />
+<meta property='og:site_name' content={site.name} />
+<meta property='og:title' content={pageTitle} />
+<meta property='og:description' content={description} />
+<meta property='og:url' content={canonicalUrl} />
+<meta property='og:image' content={ogImage} />
+<meta property='og:locale' content={site.locale} />
+
+<!-- Twitter -->
+<meta name='twitter:card' content='summary_large_image' />
+<meta name='twitter:title' content={pageTitle} />
+<meta name='twitter:description' content={description} />
+<meta name='twitter:image' content={ogImage} />
+
+<!-- Favicon -->
+<link rel='icon' type='image' href='/file.svg' />
+
+<!-- Fonts (self-hosted via @fontsource) -->
+<link
+  rel='preload'
+  as='font'
+  type='font/woff2'
+  href='/fonts/fraunces-latin-wght-normal.woff2'
+  crossorigin
+/>
+<link
+  rel='preload'
+  as='font'
+  type='font/woff2'
+  href='/fonts/plus-jakarta-sans-latin-wght-normal.woff2'
+  crossorigin
+/>
+
+<!-- JSON-LD -->
+<script
+  type='application/ld+json'
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': ldJson,
+  })}
+/>

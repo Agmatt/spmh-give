@@ -1,16 +1,18 @@
 ---
+import LandingLayout from '../layout/LandingLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<LandingLayout
+  title='Give'
+  description="Support St. Paul's Mission Hospital — Homa Bay. M-Pesa, card, and bank giving for ICU, maternity, diagnostics, and outreach.">
+  <section class='container-prose py-20 md:py-28 text-center'>
+    <p class='eyebrow mb-3'>Foundation deployed</p>
+    <h1 class='text-4xl md:text-6xl font-bold mb-5 text-balance'>
+      Give to SPMH
+    </h1>
+    <p class='text-lg text-slate-600 max-w-2xl mx-auto mb-8 text-pretty'>
+      The donation platform scaffold is live. The giving flow arrives in Wave 3.
+    </p>
+    <a href='/donate' class='btn-primary'>Continue to giving</a>
+  </section>
+</LandingLayout>
