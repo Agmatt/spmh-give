@@ -133,3 +133,23 @@ export const sortedCampaigns = [...campaigns].sort((a, b) => a.order - b.order);
 export function formatKes(amount: number): string {
   return `KES ${amount.toLocaleString('en-KE')}`;
 }
+
+export interface Campaign {
+  id: string;
+  slug: string;
+  name: string;
+  summary: string;
+  description: string;
+  impact: string;
+  gap: string;
+  target: number;
+  raised: number;
+  currency: 'KES';
+  status: CampaignStatus;
+  image: string;
+  imageAlt: string;
+  /** Optional — a photo of the space or equipment in question for the detail page */
+  gapImage?: string;
+  gapImageAlt?: string;
+  order: number;
+}

@@ -28,9 +28,13 @@ const year = new Date().getFullYear();
           Homa Bay, serving ~250,000 people. Your gift funds the pathway to
           Level 5 care by 2030.
         </p>
-        <p class='text-xs text-white/60'>
-          KRA PIN: <span class='font-mono'>{site.kraPin}</span>
-        </p>
+        {
+          site.kraPin !== 'TODO' && (
+            <p class='text-xs text-white/60'>
+              KRA PIN: <span class='font-mono'>{site.kraPin}</span>
+            </p>
+          )
+        }
       </div>
 
       <!-- Link columns -->
