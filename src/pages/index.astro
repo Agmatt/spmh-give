@@ -1,7 +1,8 @@
 ---
 import LandingLayout from '../layout/LandingLayout.astro';
+import CampaignSpotlight from '../components/sections/CampaignSpotlight.astro';
 import CampaignCard from '../components/sections/CampaignCard.astro';
-import { sortedCampaigns } from '../data/campaigns';
+import { sortedCampaigns, formatKes } from '../data/campaigns';
 import {
   institutionalNumbers,
   impactTeasers,
@@ -10,86 +11,110 @@ import {
 } from '../data/impact';
 import { site } from '../data/site';
 
-const featured = sortedCampaigns[0];
-const others = sortedCampaigns.slice(1);
+const [featured, ...others] = sortedCampaigns;
 ---
 
 <LandingLayout
   title='Give'
   description={`Give to ${site.name}. Help build the ICU, theatres, and diagnostics that 250,000 people in Homa Bay County depend on.`}>
   <!-- ============================================================
-       HERO — human, honest, urgent
+       HERO — editorial split. Type left, photograph right.
   ============================================================= -->
-  <section class='relative overflow-hidden bg-secondary text-white'>
-    <div
-      class='absolute inset-0 bg-gradient-to-br from-secondary via-secondary to-primary opacity-95'
-      aria-hidden='true'>
-    </div>
+  <section class='relative bg-cream overflow-hidden'>
+    <div class='container-prose'>
+      <div
+        class='grid lg:grid-cols-12 gap-10 lg:gap-16 items-center py-14 md:py-20 lg:py-24'>
+        <!-- Type column -->
+        <div class='lg:col-span-6 xl:col-span-5'>
+          <p class='eyebrow-gold mb-8'>Homa Bay &middot; Kenya</p>
 
-    <div class='relative container-prose py-20 md:py-32'>
-      <div class='max-w-3xl'>
-        <p class='text-xs font-bold uppercase tracking-[0.18em] text-gold mb-6'>
-          St. Paul&rsquo;s Mission Hospital &middot; Homa Bay
-        </p>
+          <h1
+            class='display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-7 text-balance'>
+            Some patients we<br class='hidden sm:block' />
+            cannot save.<br />
+            <span class='italic font-normal text-primary'>Not yet.</span>
+          </h1>
 
-        <h1
-          class='font-display text-4xl md:text-6xl font-bold text-white leading-[1.05] tracking-tight mb-6 text-balance'>
-          Some patients arrive at our door who we cannot save.
-          <span class='text-gold'>Not yet.</span>
-        </h1>
+          <p
+            class='text-lg text-ink-soft leading-relaxed mb-6 max-w-xl text-pretty'>
+            St. Paul&rsquo;s Mission Hospital serves a quarter of a million
+            people across Homa Bay County. Every day our team does remarkable
+            work with what we have.
+          </p>
 
-        <p
-          class='text-lg md:text-xl text-white/85 leading-relaxed mb-8 max-w-2xl text-pretty'>
-          We serve 250,000 people in Homa Bay County — mothers, children,
-          fishermen, farmers, families. Every day, our team does extraordinary
-          work with what we have. But when a patient needs intensive care,
-          advanced surgery, or a diagnosis we can&rsquo;t give them here, we
-          send them away. Sometimes they don&rsquo;t make it back.
-        </p>
+          <p
+            class='text-lg text-ink-soft leading-relaxed mb-10 max-w-xl text-pretty'>
+            But when a patient needs an ICU bed, modern surgery, or a diagnosis
+            we can&rsquo;t give them here — we send them away. Too often, they
+            don&rsquo;t make it back. With your help, that changes.
+          </p>
 
-        <p
-          class='text-base md:text-lg text-white/75 leading-relaxed mb-10 max-w-2xl'>
-          With your help, that changes.
-        </p>
+          <div class='flex flex-wrap items-center gap-4'>
+            <a href='/donate' class='btn-primary !px-7 !py-3.5 !text-base'>
+              Give today
+            </a>
+            <a
+              href='#campaigns'
+              class='btn-ghost !text-base !px-0 !text-primary hover:!bg-transparent hover:underline'>
+              See what we&rsquo;re building →
+            </a>
+          </div>
+        </div>
 
-        <div class='flex flex-wrap gap-3'>
-          <a
-            href='/donate'
-            class='btn-primary !bg-gold !text-secondary hover:!bg-white'>
-            Give today
-          </a>
-          <a
-            href='#campaigns'
-            class='inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border-2 border-white/40 text-white font-semibold text-sm hover:bg-white hover:text-secondary transition-colors duration-300'>
-            See what we&rsquo;re building
-          </a>
+        <!-- Image column -->
+        <div class='lg:col-span-6 xl:col-span-7 relative'>
+          <div
+            class='relative aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] rounded-sm overflow-hidden bg-gradient-to-br from-secondary to-primary'>
+            <img
+              src='/img/10.jpg'
+              alt="A clinician caring for a patient at St. Paul's Mission Hospital"
+              class='w-full h-full object-cover'
+              loading='eager'
+              fetchpriority='high'
+            />
+          </div>
+
+          <!-- Floating fact card -->
+          <div
+            class='hidden sm:block absolute -bottom-6 -left-6 lg:-left-12 bg-white border border-line p-6 shadow-[0_20px_60px_-20px_rgba(15,23,32,0.25)] max-w-[280px]'>
+            <p
+              class='font-mono text-3xl font-semibold text-accent leading-none mb-2'>
+              0
+            </p>
+            <p class='text-sm font-semibold text-ink leading-snug mb-1'>
+              ICU beds
+            </p>
+            <p class='text-xs text-ink-soft leading-relaxed'>
+              for a catchment of 250,000 people. Every critical patient is
+              referred out.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       THE REALITY — four numbers that tell the whole story
+       REALITY STRIP — the numbers, editorial style
   ============================================================= -->
-  <section class='bg-white border-b border-border'>
-    <div class='container-prose py-12 md:py-16'>
-      <div class='grid gap-8 sm:grid-cols-2 lg:grid-cols-4'>
+  <section class='bg-white border-y border-line'>
+    <div class='container-prose'>
+      <div
+        class='grid grid-cols-2 lg:grid-cols-4 divide-x divide-line border-x border-line'>
         {
-          institutionalNumbers.map((n, i) => (
-            <div
-              class:list={[
-                'flex flex-col',
-                i === 3 && 'sm:col-span-2 lg:col-span-1',
-              ]}>
+          institutionalNumbers.map((n) => (
+            <div class='p-8 md:p-10'>
               <p
                 class:list={[
-                  'font-display text-4xl md:text-5xl font-bold mb-2 leading-none',
-                  n.value === '0' ? 'text-accent' : 'text-primary',
+                  'font-mono text-4xl md:text-5xl font-medium mb-4 leading-none tracking-tight',
+                  n.value === '0' ? 'text-accent' : 'text-ink',
                 ]}>
                 {n.value}
               </p>
-              <p class='text-sm font-semibold text-slate-900 mb-1'>{n.label}</p>
-              <p class='text-xs text-muted leading-relaxed'>{n.context}</p>
+              <p class='text-[13px] font-semibold uppercase tracking-wider text-ink mb-2'>
+                {n.label}
+              </p>
+              <p class='text-xs text-ink-soft leading-relaxed'>{n.context}</p>
             </div>
           ))
         }
@@ -98,177 +123,167 @@ const others = sortedCampaigns.slice(1);
   </section>
 
   <!-- ============================================================
-       CAMPAIGNS — the ask, front and centre
+       CAMPAIGNS — spotlight + grid
   ============================================================= -->
-  <section id='campaigns' class='bg-surface py-16 md:py-24'>
+  <section id='campaigns' class='bg-cream py-20 md:py-28'>
     <div class='container-prose'>
-      <div class='max-w-2xl mb-12'>
-        <p class='eyebrow mb-3'>What we&rsquo;re building</p>
-        <h2 class='text-3xl md:text-4xl font-bold mb-4 text-balance'>
-          Five things that would change everything.
-        </h2>
-        <p class='text-slate-600 leading-relaxed text-pretty'>
-          These aren&rsquo;t abstract projects. Each one closes a gap that we
-          feel every single week — a mother, a child, a neighbour who needed
-          something we couldn&rsquo;t give them here.
-        </p>
+      <div class='grid lg:grid-cols-12 gap-8 mb-16 items-end'>
+        <div class='lg:col-span-7'>
+          <p class='eyebrow-gold mb-5'>The work ahead</p>
+          <h2 class='display text-3xl md:text-5xl mb-6 text-balance'>
+            Five things that would change everything.
+          </h2>
+        </div>
+        <div class='lg:col-span-5'>
+          <p class='text-base text-ink-soft leading-relaxed text-pretty'>
+            Each of these closes a gap we feel every week — a mother, a child, a
+            neighbour who needed something we couldn&rsquo;t give them here.
+          </p>
+        </div>
       </div>
 
-      <!-- Featured campaign — ICU, the flagship -->
-      <a
-        href={`/campaigns/${featured.slug}`}
-        class='group block rounded-2xl overflow-hidden border border-border bg-white hover:shadow-xl transition-shadow mb-8'>
-        <div class='grid md:grid-cols-2'>
-          <div
-            class='aspect-[4/3] md:aspect-auto md:min-h-[360px] bg-surface-2 overflow-hidden'>
-            <img
-              src={featured.image}
-              alt={featured.imageAlt}
-              class='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700'
-              loading='eager'
-            />
-          </div>
-          <div class='p-8 md:p-10 flex flex-col justify-center'>
-            <span
-              class='inline-block self-start px-3 py-1 text-[11px] font-bold uppercase tracking-wider rounded-full bg-accent text-white mb-4'>
-              Most urgent need
-            </span>
-            <h3 class='font-display text-2xl md:text-3xl font-bold mb-3'>
-              {featured.name}
-            </h3>
-            <p class='text-slate-600 leading-relaxed mb-5 text-pretty'>
-              {featured.summary}
-            </p>
-            <p class='text-sm text-muted mb-6'>
-              Goal: <span class='font-mono font-semibold text-primary'
-                >KES {featured.target.toLocaleString('en-KE')}</span
-              >
-            </p>
-            <span class='btn-primary self-start'>Fund this campaign →</span>
-          </div>
-        </div>
-      </a>
+      <!-- Featured campaign — full width, spotlight -->
+      <CampaignSpotlight campaign={featured} />
 
-      <!-- Other campaigns -->
-      <div class='grid gap-6 md:grid-cols-2'>
+      <!-- Others — restrained grid -->
+      <div class='mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4'>
         {others.map((c) => <CampaignCard campaign={c} />)}
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       IMPACT — what a gift actually does
+       IMPACT — menu-style with dotted leaders
   ============================================================= -->
-  <section class='bg-white py-16 md:py-24'>
+  <section class='bg-white py-20 md:py-28'>
     <div class='container-prose'>
-      <div class='max-w-2xl mb-12'>
-        <p class='eyebrow mb-3'>Your gift at work</p>
-        <h2 class='text-3xl md:text-4xl font-bold mb-4 text-balance'>
-          Every shilling has a purpose.
-        </h2>
-        <p class='text-slate-600 leading-relaxed text-pretty'>
-          Not vague promises. These are real services, real costs, and real
-          lives at SPMH.
-        </p>
-      </div>
-
-      <div class='grid gap-5 sm:grid-cols-2 lg:grid-cols-4'>
-        {
-          impactTeasers.map((t) => (
-            <div class='rounded-2xl border border-border bg-surface p-6 flex flex-col'>
-              <p class='font-display text-3xl font-bold text-primary mb-3'>
-                {t.amount}
-              </p>
-              <p class='text-sm text-slate-700 leading-relaxed flex-1'>
-                {t.impact}
-              </p>
-            </div>
-          ))
-        }
-      </div>
-
-      <p class='text-sm text-muted mt-8 text-center'>
-        Want to give a specific amount? <a
-          href='/donate'
-          class='text-primary underline font-semibold'
-          >Head to the donate page</a
-        > or set up monthly giving.
-      </p>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       WHERE THE MONEY GOES — quiet accountability
-  ============================================================= -->
-  <section class='bg-surface py-16 md:py-24'>
-    <div class='container-prose'>
-      <div class='grid gap-12 md:grid-cols-5 items-center'>
-        <div class='md:col-span-2'>
-          <p class='eyebrow mb-3'>Where the money goes</p>
-          <h2 class='text-3xl md:text-4xl font-bold mb-5 text-balance'>
-            You have a right to know.
+      <div class='grid lg:grid-cols-12 gap-12'>
+        <!-- Left: header -->
+        <div class='lg:col-span-5 lg:sticky lg:top-28 lg:self-start'>
+          <p class='eyebrow-gold mb-5'>Your gift, in real terms</p>
+          <h2 class='display text-3xl md:text-5xl mb-6 text-balance'>
+            Every shilling has a name.
           </h2>
-          <p class='text-slate-600 leading-relaxed mb-6 text-pretty'>
-            Kenya has seen real donation fraud. We take that seriously. Every
-            gift is receipted, every shilling is tracked, and our accounts are
-            audited and published annually.
+          <p class='text-base text-ink-soft leading-relaxed text-pretty mb-8'>
+            Not vague promises. These are real services, real costs — the
+            everyday work of a hospital that treats everyone who walks through
+            its doors.
           </p>
-          <a href='/annual-reports' class='btn-secondary'> Read our reports </a>
+          <a href='/donate' class='btn-primary'> Give a specific amount </a>
         </div>
 
-        <div class='md:col-span-3 space-y-5'>
-          {
-            allocation.map((a) => (
-              <div>
-                <div class='flex items-baseline justify-between mb-2'>
-                  <span class='text-sm font-semibold text-slate-900'>
-                    {a.label}
+        <!-- Right: menu -->
+        <div class='lg:col-span-7'>
+          <ul class='divide-y divide-line border-y border-line'>
+            {
+              impactTeasers.map((t) => (
+                <li class='py-6 grid grid-cols-[auto_1fr] gap-x-6 items-baseline'>
+                  <span class='font-mono text-xl md:text-2xl font-semibold text-primary whitespace-nowrap'>
+                    {t.amount}
                   </span>
-                  <span class='font-display text-xl font-bold text-primary'>
-                    {a.percentage}%
+                  <span class='text-base text-ink leading-relaxed'>
+                    {t.impact}
                   </span>
-                </div>
-                <div class='w-full bg-white rounded-full h-2.5 overflow-hidden border border-border'>
-                  <div
-                    class='h-full bg-gradient-to-r from-primary to-secondary rounded-full'
-                    style={`width: ${a.percentage}%`}
-                  />
-                </div>
-                <p class='text-xs text-muted mt-2 leading-relaxed'>
-                  {a.description}
-                </p>
-              </div>
-            ))
-          }
+                </li>
+              ))
+            }
+          </ul>
+          <p class='text-xs text-ink-soft mt-6 leading-relaxed'>
+            Monthly giving available at any amount. Choose your amount when you
+            give.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       WHY SPMH — trust, but earned
+       ACCOUNTABILITY — quiet, single column, editorial
   ============================================================= -->
-  <section class='bg-white py-16 md:py-24'>
+  <section class='bg-secondary text-white py-20 md:py-28'>
     <div class='container-prose'>
-      <div class='max-w-2xl mb-12'>
-        <p class='eyebrow mb-3'>Why SPMH</p>
-        <h2 class='text-3xl md:text-4xl font-bold mb-4 text-balance'>
-          A hospital you can stand behind.
-        </h2>
+      <div class='grid lg:grid-cols-12 gap-12 items-center'>
+        <div class='lg:col-span-5'>
+          <p class='eyebrow-gold mb-5 !text-gold'>Transparency</p>
+          <h2
+            class='font-display text-3xl md:text-4xl font-medium leading-[1.1] text-white mb-6 text-balance'
+            style='letter-spacing: -0.025em;'>
+            You have a right<br />
+            to know exactly<br />
+            where this goes.
+          </h2>
+          <p class='text-base text-white/70 leading-relaxed mb-8 text-pretty'>
+            Kenya has seen real donation fraud. We take that seriously. Every
+            gift is receipted, every shilling tracked, and our accounts audited
+            and published annually.
+          </p>
+          <a
+            href='/annual-reports'
+            class='inline-flex items-center gap-2 text-gold font-semibold hover:gap-3 transition-all'>
+            Read our reports
+            <span aria-hidden='true'>→</span>
+          </a>
+        </div>
+
+        <div class='lg:col-span-6 lg:col-start-7'>
+          <ul class='space-y-8'>
+            {
+              allocation.map((a) => (
+                <li>
+                  <div class='flex items-baseline justify-between mb-3'>
+                    <span class='text-sm font-semibold text-white/90 uppercase tracking-wider'>
+                      {a.label}
+                    </span>
+                    <span class='font-mono text-2xl font-medium text-gold tabular-nums'>
+                      {a.percentage}%
+                    </span>
+                  </div>
+                  <div class='w-full h-px bg-white/15 relative overflow-hidden mb-3'>
+                    <div
+                      class='absolute inset-y-0 left-0 bg-gold'
+                      style={`width: ${a.percentage}%`}
+                    />
+                  </div>
+                  <p class='text-xs text-white/55 leading-relaxed max-w-lg'>
+                    {a.description}
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TRUST — single pull quote + three proofs
+  ============================================================= -->
+  <section class='bg-white py-20 md:py-28'>
+    <div class='container-prose'>
+      <div class='max-w-3xl mx-auto text-center mb-20'>
+        <p class='eyebrow-gold mb-6 justify-center'>Why SPMH</p>
+        <blockquote
+          class='font-display text-2xl md:text-4xl font-medium leading-[1.25] text-ink text-balance'
+          style='letter-spacing: -0.02em;'>
+          &ldquo;A faith-based hospital under the Catholic Diocese of Homa Bay.
+          Care here is a <em class='not-italic text-primary'>calling</em>, not a
+          transaction.&rdquo;
+        </blockquote>
       </div>
 
-      <div class='grid gap-10 md:grid-cols-3'>
+      <div class='grid md:grid-cols-3 gap-px bg-line border border-line'>
         {
           trustSignals.map((s) => (
-            <div class='flex flex-col'>
-              <div class='inline-flex items-center justify-center w-12 h-12 rounded-xl bg-surface-2 text-primary mb-5'>
+            <div class='bg-white p-8 md:p-10'>
+              <div class='inline-flex items-center justify-center w-10 h-10 text-primary mb-6'>
                 {s.icon === 'cross' && (
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
                     fill='none'
                     stroke='currentColor'
-                    stroke-width='2'
+                    stroke-width='1.5'
                     class='w-6 h-6'>
                     <path
                       stroke-linecap='round'
@@ -283,7 +298,7 @@ const others = sortedCampaigns.slice(1);
                     viewBox='0 0 24 24'
                     fill='none'
                     stroke='currentColor'
-                    stroke-width='2'
+                    stroke-width='1.5'
                     class='w-6 h-6'>
                     <path
                       stroke-linecap='round'
@@ -299,7 +314,7 @@ const others = sortedCampaigns.slice(1);
                     viewBox='0 0 24 24'
                     fill='none'
                     stroke='currentColor'
-                    stroke-width='2'
+                    stroke-width='1.5'
                     class='w-6 h-6'>
                     <path
                       stroke-linecap='round'
@@ -310,8 +325,10 @@ const others = sortedCampaigns.slice(1);
                   </svg>
                 )}
               </div>
-              <h3 class='font-display text-lg font-bold mb-2'>{s.title}</h3>
-              <p class='text-sm text-slate-600 leading-relaxed'>
+              <h3 class='font-display text-lg font-semibold mb-3 text-ink'>
+                {s.title}
+              </h3>
+              <p class='text-sm text-ink-soft leading-relaxed'>
                 {s.description}
               </p>
             </div>
@@ -322,39 +339,41 @@ const others = sortedCampaigns.slice(1);
   </section>
 
   <!-- ============================================================
-       FINAL CTA — clear and quiet
+       FINAL CTA — restrained
   ============================================================= -->
-  <section class='bg-secondary text-white'>
-    <div class='container-prose py-20 md:py-28 text-center'>
-      <h2
-        class='font-display text-3xl md:text-5xl font-bold text-white mb-5 text-balance max-w-3xl mx-auto'>
-        Help us be the hospital Homa Bay deserves.
-      </h2>
-      <p class='text-lg text-white/80 max-w-2xl mx-auto mb-10 text-pretty'>
-        Whether it&rsquo;s KES 500 or KES 500,000 — every gift closes a gap that
-        a patient feels today.
-      </p>
-      <div class='flex flex-wrap gap-3 justify-center'>
-        <a
-          href='/donate'
-          class='btn-primary !bg-gold !text-secondary hover:!bg-white'>
-          Give now
-        </a>
-        <a
-          href='/contact-giving'
-          class='inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border-2 border-white/40 text-white font-semibold text-sm hover:bg-white hover:text-secondary transition-colors duration-300'>
-          Talk to our giving team
-        </a>
-      </div>
+  <section class='bg-cream border-t border-line py-20 md:py-28'>
+    <div class='container-prose'>
+      <div class='max-w-3xl'>
+        <p class='eyebrow-gold mb-6'>Give today</p>
+        <h2 class='display text-3xl md:text-5xl mb-6 text-balance'>
+          Help us become the hospital<br class='hidden md:block' />
+          Homa Bay deserves.
+        </h2>
+        <p
+          class='text-lg text-ink-soft leading-relaxed mb-10 max-w-2xl text-pretty'>
+          Whether it&rsquo;s KES 500 or KES 500,000 — every gift closes a gap a
+          patient feels today.
+        </p>
+        <div class='flex flex-wrap items-center gap-6'>
+          <a href='/donate' class='btn-primary !px-7 !py-3.5 !text-base'>
+            Give now
+          </a>
+          <a
+            href='/contact-giving'
+            class='text-primary font-semibold hover:underline underline-offset-4'>
+            Talk to our giving team →
+          </a>
+        </div>
 
-      <p class='text-xs text-white/50 mt-10 max-w-lg mx-auto'>
-        By donating, you agree to our
-        <a href='/terms-of-giving' class='underline hover:text-white'
-          >Terms of Giving</a
-        > and
-        <a href='/privacy' class='underline hover:text-white'>Privacy Policy</a
-        >.
-      </p>
+        <p class='text-xs text-ink-soft mt-14 max-w-lg leading-relaxed'>
+          By donating, you agree to our
+          <a href='/terms-of-giving' class='underline hover:text-ink'
+            >Terms of Giving</a
+          > and
+          <a href='/privacy' class='underline hover:text-ink'>Privacy Policy</a
+          >.
+        </p>
+      </div>
     </div>
   </section>
 </LandingLayout>

@@ -22,6 +22,18 @@
 
   /* Radii */
   --radius-card: 0.75rem;
+
+    /* Editorial palette */
+  --color-ink: #0f1720;
+  --color-ink-soft: #475569;
+  --color-cream: #faf8f3;
+  --color-sand: #f2ecdf;
+  --color-line: #e6e0d2;
+
+  /* Larger type scale */
+  --text-display: 4.5rem;
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.03em;
 }
 
 @layer base {
@@ -106,6 +118,22 @@
 
   .rule-accent {
     @apply h-1 w-14 bg-accent rounded;
+  }
+  .eyebrow-gold {
+    @apply inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-gold;
+  }
+  .eyebrow-gold::before {
+    content: '';
+    @apply inline-block w-8 h-px bg-gold;
+  }
+
+  .display {
+    @apply font-display font-medium text-ink;
+    letter-spacing: -0.028em;
+  }
+
+  .rule-hairline {
+    @apply border-0 border-t border-line;
   }
 }
 
