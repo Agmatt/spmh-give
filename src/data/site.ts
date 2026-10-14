@@ -21,9 +21,19 @@ export const site = {
   kraPin: 'P000000000X', // TODO: confirm with Finance
   dpoEmail: 'dpo@spmh.co.ke', // TODO: confirm
 
+  bank: {
+    accountName: "St. Paul's Mission Hospital",
+    bankName: 'Co-operative Bank',
+    branch: 'Homa Bay',
+    accountNumber: '011125678900',
+    swift: 'K223344',
+  },
+
+    mpesaTill: '123456',
+  
   // Social
   social: {
-    facebook: '',  // TODO
+    facebook: '', // TODO
     twitter: '',
     linkedin: '',
     youtube: '',

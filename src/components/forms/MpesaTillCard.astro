@@ -1,0 +1,98 @@
+---
+import { site } from '../../data/site';
+
+const configured =
+  site.mpesaTill &&
+  site.mpesaTill !== 'TODO' &&
+  site.mpesaTill.trim().length > 0;
+---
+
+<div class='bg-white border border-line'>
+  <!-- Header strip -->
+  <div
+    class='flex items-center justify-between px-4 md:px-8 py-5 border-b border-line'>
+    <div class='flex items-center gap-3'>
+      <span class='inline-flex items-center justify-center w-9 h-9 bg-green-50'>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 24 24'
+          fill='currentColor'
+          class='w-5 h-5 text-green-700'>
+          <path d='M10.5 18.75a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z'
+          ></path>
+          <path
+            fill-rule='evenodd'
+            d='M8.625.75A3.375 3.375 0 0 0 5.25 4.125v15.75a3.375 3.375 0 0 0 3.375 3.375h6.75a3.375 3.375 0 0 0 3.375-3.375V4.125A3.375 3.375 0 0 0 15.375.75h-6.75ZM7.5 4.125C7.5 3.504 8.004 3 8.625 3H9.75v.375c0 .621.504 1.125 1.125 1.125h2.25c.621 0 1.125-.504 1.125-1.125V3h1.125c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-6.75A1.125 1.125 0 0 1 7.5 19.875V4.125Z'
+            clip-rule='evenodd'></path>
+        </svg>
+      </span>
+      <div>
+        <p class='font-display font-semibold text-ink leading-tight'>M-Pesa</p>
+        <p class='text-[11px] uppercase tracking-wider text-ink-soft'>
+          Buy Goods &amp; Services
+        </p>
+      </div>
+    </div>
+    <span
+      class='text-[10px] font-bold uppercase tracking-[0.18em] text-green-700 bg-green-50 px-2.5 py-1'>
+      Fastest
+    </span>
+  </div>
+
+  <div class='p-6 md:p-8'>
+    <!-- Till number -->
+    <div class='mb-8'>
+      <p
+        class='text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-3'>
+        Till number
+      </p>
+      {
+        configured ? (
+          <p class='font-mono text-4xl md:text-5xl font-bold text-ink tracking-wider tabular-nums'>
+            {site.mpesaTill}
+          </p>
+        ) : (
+          <p class='font-display text-lg text-accent font-semibold'>
+            Till number pending —{' '}
+            <a href={`mailto:${site.givingEmail}`} class='underline'>
+              email us to give today
+            </a>
+            .
+          </p>
+        )
+      }
+      <p class='text-sm text-ink-soft mt-2'>{site.legalName}</p>
+    </div>
+
+    <!-- Steps -->
+    <ol class='space-y-3 mb-8'>
+      {
+        [
+          'Open M-Pesa on your phone',
+          'Select Lipa na M-Pesa → Buy Goods & Services',
+          'Enter the Till number above',
+          'Enter your amount, then your M-Pesa PIN',
+          'You will receive an SMS confirmation',
+        ].map((step, i) => (
+          <li class='flex items-start gap-4'>
+            <span class='shrink-0 w-6 h-6 flex items-center justify-center text-[11px] font-mono font-semibold text-ink-soft border border-line'>
+              {i + 1}
+            </span>
+            <span class='text-sm text-ink leading-relaxed pt-0.5'>{step}</span>
+          </li>
+        ))
+      }
+    </ol>
+
+    <!-- Instruction -->
+    <div class='border-l-2 border-green-600 bg-green-50/50 pl-4 py-3'>
+      <p class='text-sm text-ink leading-relaxed'>
+        Forward your M-Pesa confirmation SMS to <a
+          href={`mailto:${site.givingEmail}`}class='font-semibold underline decoration-green-700 underline-offset-2'> 
+          {site.givingEmail}
+        </a>
+        so we can send your official receipt.
+      </p>
+    </div>
+  </div>
+</div>
