@@ -1,0 +1,261 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import MpesaTillCard from '../components/forms/MpesaTillCard.astro';
+import BankTransferCard from '../components/forms/BankTransferCard.astro';
+import { impactTeasers } from '../data/impact';
+import { site } from '../data/site';
+
+const jsonLd = {
+  '@type': 'DonateAction',
+  name: `Give to ${site.name}`,
+  description:
+    "Support critical care, safe motherhood, and advanced diagnostics at St. Paul's Mission Hospital, Homa Bay.",
+  recipient: {
+    '@type': 'NGO',
+    name: site.legalName,
+    url: site.url,
+  },
+  target: {
+    '@type': 'EntryPoint',
+    urlTemplate: `${site.url}/donate`,
+  },
+};
+---
+
+<LandingLayout
+  title='Donate'
+  description="Give to St. Paul's Mission Hospital via M-Pesa or bank transfer. Every gift is receipted and funds care for 250,000 people in Homa Bay County."
+  canonical='/donate'
+  jsonLd={jsonLd}>
+  <!-- ============================================================
+       HERO — short, warm, functional
+  ============================================================= -->
+  <section class='bg-cream border-b border-line'>
+    <div class='container-prose py-14 md:py-20'>
+      <div class='max-w-3xl'>
+        <p class='eyebrow-gold mb-5'>Give to SPMH</p>
+        <h1 class='display text-4xl md:text-5xl lg:text-6xl mb-5 text-balance'>
+          Every gift closes<br class='hidden md:block' />
+          a gap a patient feels <em class='italic font-normal text-primary'
+            >today</em
+          >.
+        </h1>
+        <p
+          class='text-base md:text-lg text-ink-soft leading-relaxed max-w-2xl text-pretty'>
+          M-Pesa and bank transfer are the fastest ways to give right now. Every
+          gift is manually receipted by our Finance office within 48 hours.
+          Direct card and online giving launch soon.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GIVING METHODS — the primary action, front and centre
+  ============================================================= -->
+  <section class='bg-cream pb-16 md:pb-24'>
+    <div class='container-prose'>
+      <div class='grid md:grid-cols-2 gap-5 md:gap-6'>
+        <MpesaTillCard />
+        <BankTransferCard />
+      </div>
+
+      <!-- Other methods — quiet single line -->
+      <div
+        class='mt-6 md:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-6 md:px-8 py-5 bg-white border border-line'>
+        <p class='text-sm text-ink-soft leading-relaxed'>
+          <span class='font-semibold text-ink'
+            >Card, PayPal, and recurring gifts</span
+          >
+          launch alongside our online flow.
+        </p>
+        <a
+          href='/diaspora'
+          class='text-sm text-primary font-semibold hover:underline underline-offset-4 whitespace-nowrap'>
+          Diaspora options →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DESIGNATE YOUR GIFT — quiet, useful
+  ============================================================= -->
+  <section class='bg-secondary text-white py-14 md:py-20'>
+    <div class='container-prose'>
+      <div class='grid lg:grid-cols-12 gap-8 md:gap-12 items-center'>
+        <div class='lg:col-span-5'>
+          <p class='eyebrow-gold !text-gold mb-5'>Designate your gift</p>
+          <h2
+            class='font-display text-2xl md:text-4xl font-medium text-white leading-[1.15] mb-5 text-balance'
+            style='letter-spacing: -0.025em;'>
+            Direct it to what matters most to you.
+          </h2>
+        </div>
+
+        <div class='lg:col-span-6 lg:col-start-7'>
+          <p class='text-base text-white/75 leading-relaxed mb-6 text-pretty'>
+            Add a note in your M-Pesa reference, or mention it when you forward
+            your confirmation. We&rsquo;ll apply it to the campaign you choose.
+          </p>
+          <div class='flex flex-wrap items-center gap-x-6 gap-y-3'>
+            <a
+              href='/campaigns'
+              class='text-gold font-semibold hover:underline underline-offset-4'>
+              See active campaigns →
+            </a>
+            <a
+              href='/how-it-helps'
+              class='text-white/70 hover:text-white underline underline-offset-4 text-sm'>
+              Or give unrestricted
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHAT YOUR GIFT DOES — menu
+  ============================================================= -->
+  <section class='bg-white py-16 md:py-24 border-b border-line'>
+    <div class='container-prose'>
+      <div class='grid lg:grid-cols-12 gap-12'>
+        <div class='lg:col-span-5 lg:sticky lg:top-28 lg:self-start'>
+          <p class='eyebrow-gold mb-5'>Your gift, in real terms</p>
+          <h2 class='display text-3xl md:text-5xl mb-6 text-balance'>
+            What your donation does.
+          </h2>
+          <p class='text-base text-ink-soft leading-relaxed text-pretty'>
+            Not vague promises — real services, real costs, the everyday work of
+            a hospital that treats everyone who walks through its doors.
+          </p>
+        </div>
+
+        <div class='lg:col-span-7'>
+          <ul class='divide-y divide-line border-y border-line'>
+            {
+              impactTeasers.map((t) => (
+                <li class='py-6 grid grid-cols-[auto_1fr] gap-x-6 items-baseline'>
+                  <span class='font-mono text-xl md:text-2xl font-semibold text-primary whitespace-nowrap tabular-nums'>
+                    {t.amount}
+                  </span>
+                  <span class='text-base text-ink leading-relaxed'>
+                    {t.impact}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TRUST CLOSE — receipts, promises, legal
+  ============================================================= -->
+  <section class='bg-surface py-16 md:py-24'>
+    <div class='container-prose'>
+      <div class='max-w-3xl mx-auto text-center mb-12 md:mb-16'>
+        <p class='eyebrow-gold mb-5'>Every donor deserves proof</p>
+        <h2 class='display text-3xl md:text-4xl mb-6 text-balance'>
+          Your trust is the whole reason this works.
+        </h2>
+        <p class='text-base text-ink-soft leading-relaxed text-pretty'>
+          We don&rsquo;t ask you to trust us on faith. Here is what we do to
+          earn it.
+        </p>
+      </div>
+
+      <div class='grid md:grid-cols-3 gap-px bg-muted rounded-sm  mb-12'>
+        {
+          [
+            {
+              title: 'A receipt for every gift',
+              body: 'Sent within 48 hours, with a unique reference number and the hospital’s KRA details.',
+            },
+            {
+              title: 'Audited accounts, published',
+              body: 'Every year, on this site. Income and expenditure, in full. No exceptions.',
+            },
+            {
+              title: 'Your consent, always',
+              body: 'We never publish a donor’s name without your explicit, revocable consent. Anonymous giving is always an option.',
+            },
+          ].map((c) => (
+            <div class='bg-surface p-8 md:p-10 flex flex-col'>
+              <p class='font-mono text-xs font-semibold text-primary mb-6 tabular-nums'>
+                {c.n}
+              </p>
+              <h3 class='font-display text-lg font-semibold text-ink mb-3 leading-tight'>
+                {c.title}
+              </h3>
+              <p class='text-sm text-ink-soft leading-relaxed flex-1'>
+                {c.body}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT — 50/50, image bleeds right
+  ============================================================= -->
+  <section class='bg-white border-t border-line'>
+    <div class='grid lg:grid-cols-2'>
+      <div class='flex items-center'>
+        <div
+          class='w-full px-6 md:px-10 lg:px-16 xl:px-24 py-16 md:py-24 lg:py-32'>
+          <p class='eyebrow-gold mb-6'>Talk to us</p>
+          <h2
+            class='display text-3xl md:text-4xl lg:text-5xl mb-6 text-balance max-w-xl'>
+            If you need help giving, we&rsquo;re one message away.
+          </h2>
+          <p
+            class='text-base md:text-lg text-ink-soft leading-relaxed mb-10 max-w-lg text-pretty'>
+            Large gifts, legacy bequests, corporate partnerships, or questions
+            about how your gift will be used — reach the giving team directly.
+          </p>
+
+          <div class='space-y-6'>
+            <div>
+              <p
+                class='text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-2'>
+                Giving enquiries
+              </p>
+              <a
+                href={`mailto:${site.givingEmail}`}
+                class='font-display text-lg text-primary font-semibold hover:underline underline-offset-4 break-all'>
+                {site.givingEmail}
+              </a>
+            </div>
+            <div>
+              <p
+                class='text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-2'>
+                Major gifts &amp; legacy
+              </p>
+              <a
+                href={`mailto:${site.givingEmail}?subject=Major gift enquiry`}
+                class='text-sm text-primary font-semibold hover:underline underline-offset-4'>
+                Start a conversation →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class='relative min-h-[320px] sm:min-h-[420px] lg:min-h-[600px] bg-gradient-to-br from-secondary to-primary'>
+        <img
+          src='/gallery/21.png'
+          alt='The SPMH giving team with a donor'
+          class='absolute inset-0 w-full h-full object-cover'
+          loading='lazy'
+        />
+      </div>
+    </div>
+  </section>
+</LandingLayout>

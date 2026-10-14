@@ -1,0 +1,131 @@
+---
+import LandingLayout from '../../layout/LandingLayout.astro';
+import CampaignCard from '../../components/sections/CampaignCard.astro';
+import { sortedCampaigns, formatKes } from '../../data/campaigns';
+import { site } from '../../data/site';
+
+const [flagship, ...others] = sortedCampaigns;
+
+const jsonLd = {
+  '@type': 'CollectionPage',
+  name: "Campaigns — St. Paul's Mission Hospital",
+  description:
+    "Capital campaigns funding critical care, safe motherhood, diagnostics, and dialysis at St. Paul's Mission Hospital.",
+  url: `${site.url}/campaigns`,
+};
+---
+
+<LandingLayout
+  title='Campaigns'
+  description="Fund specific projects at St. Paul's Mission Hospital — ICU, theatres, safe motherhood, diagnostics, and dialysis."
+  canonical='/campaigns'
+  jsonLd={jsonLd}>
+  <!-- ============================================================
+       BEAT 1 — FLAGSHIP. Full-bleed hero.
+  ============================================================= -->
+  <section
+    class='relative min-h-[560px] md:min-h-[680px] lg:min-h-[720px] flex items-end overflow-hidden'>
+    <img
+      src={flagship.image}
+      alt={flagship.imageAlt}
+      class='absolute inset-0 w-full h-full object-cover'
+      loading='eager'
+      fetchpriority='high'
+    />
+    <div
+      class='absolute inset-0 bg-gradient-to-t from-secondary via-secondary/70 to-secondary/20'
+      aria-hidden='true'>
+    </div>
+
+    <div class='relative container-prose pb-16 md:pb-24 pt-40'>
+      <div class='max-w-3xl'>
+        <p class='eyebrow-gold !text-gold mb-6 flex items-center gap-3'>
+          Most urgent need
+        </p>
+
+        <h1
+          class='font-display text-3xl md:text-5xl lg:text-6xl font-medium text-white leading-[1.05] tracking-tight mb-6 text-balance'
+          style='letter-spacing: -0.028em;'>
+          {flagship.name}
+        </h1>
+
+        <p
+          class='text-lg md:text-xl text-white/85 leading-relaxed mb-8 max-w-2xl text-pretty'>
+          {flagship.summary}
+        </p>
+
+        <div class='flex flex-wrap items-center gap-x-8 gap-y-4'>
+          <a
+            href={`/campaigns/${flagship.slug}`}
+            class='btn-primary !bg-gold !text-secondary hover:!bg-white !px-7 !py-3.5 !text-base'>
+            Fund this campaign
+          </a>
+          <p class='text-sm text-white/70'>
+            Goal &middot;
+            <span class='font-mono font-semibold text-white'
+              >{formatKes(flagship.target)}</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 2 — THE REST. Editorial card grid.
+  ============================================================= -->
+  <section class='bg-cream py-16 md:py-24'>
+    <div class='container-prose'>
+      <div class='grid lg:grid-cols-12 gap-8 mb-12 md:mb-16 items-end'>
+        <div class='lg:col-span-7'>
+          <p class='eyebrow-gold mb-5'>Also fundraising</p>
+          <h2 class='display text-3xl md:text-5xl mb-5 text-balance'>
+            The rest of the work.
+          </h2>
+        </div>
+        <div class='lg:col-span-5'>
+          <p class='text-base text-ink-soft leading-relaxed text-pretty'>
+            Each campaign closes a gap we feel every single week. You can direct
+            your gift to whichever one matters most to you.
+          </p>
+        </div>
+      </div>
+
+      <div class='grid sm:grid-cols-2 gap-5 md:gap-6'>
+        {others.map((c) => <CampaignCard campaign={c} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 3 — QUIET CLOSE. Unrestricted giving.
+  ============================================================= -->
+  <section class='bg-secondary text-white py-16 md:py-20'>
+    <div class='container-prose'>
+      <div class='grid lg:grid-cols-12 gap-8 md:gap-12 items-center'>
+        <div class='lg:col-span-7'>
+          <p class='eyebrow-gold !text-gold mb-5'>Can&rsquo;t choose?</p>
+          <h2
+            class='font-display text-2xl md:text-4xl font-medium text-white leading-[1.15] mb-5 text-balance'
+            style='letter-spacing: -0.025em;'>
+            Give unrestricted, and let us direct it to where it&rsquo;s needed
+            most.
+          </h2>
+          <p
+            class='text-base text-white/70 leading-relaxed text-pretty max-w-xl'>
+            Unrestricted gifts are the most useful — they let our clinical team
+            respond to the sharpest need of the moment, week by week.
+          </p>
+        </div>
+
+        <div class='lg:col-span-5 lg:col-start-8 flex lg:justify-end'>
+          <a
+            href='/donate'
+            class='btn-primary !bg-gold !text-secondary hover:!bg-white !px-7 !py-3.5 !text-base'>
+            Give now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

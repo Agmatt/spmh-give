@@ -1,0 +1,96 @@
+---
+import { site } from '../../data/site';
+
+const configured = site.bank.accountNumber !== 'TODO';
+
+const rows = configured
+  ? [
+      ['Account name', site.bank.accountName],
+      ['Bank', site.bank.bankName],
+      ['Branch', site.bank.branch],
+      ['Account no.', site.bank.accountNumber],
+      ['SWIFT', site.bank.swift],
+    ]
+  : [];
+---
+
+<div class='bg-white border border-line'>
+  <div class='flex items-center gap-3 px-4 md:px-8 py-5 border-b border-line'>
+    <span class='inline-flex items-center justify-center w-9 h-9 bg-surface-2'>
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        stroke-width='1.5'
+        class='w-5 h-5 text-primary'>
+        <path
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M3 10h18M5 6h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z'
+        ></path>
+        <circle cx='12' cy='14' r='2'></circle>
+      </svg>
+    </span>
+    <div>
+      <p class='font-display font-semibold text-ink leading-tight'>
+        Bank transfer
+      </p>
+      <p class='text-[11px] uppercase tracking-wider text-ink-soft'>
+        For large or institutional gifts
+      </p>
+    </div>
+  </div>
+
+  <div class='p-6 md:p-8'>
+    {
+      configured ? (
+        <dl class='divide-y divide-line border-y border-line mb-6'>
+          {rows.map(([label, value]) => (
+            <div class='grid grid-cols-3 gap-4 py-3'>
+              <dt class='text-[11px] font-semibold uppercase tracking-wider text-ink-soft pt-0.5'>
+                {label}
+              </dt>
+              <dd
+                class:list={[
+                  'col-span-2 text-sm text-ink',
+                  ['Account no.', 'SWIFT'].includes(label) && 'font-mono',
+                ]}>
+                {value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      ) : (
+        <div class='border border-dashed border-line p-5 mb-6'>
+          <p class='text-sm text-ink-soft leading-relaxed'>
+            Bank details are being finalised. Email 
+            <a
+              href={`mailto:${site.givingEmail}`}
+              class='text-primary font-semibold underline'>  
+              {' '} 
+              {site.givingEmail}
+            </a>
+            and we&rsquo;ll send you the current transfer instructions.
+          </p>
+        </div>
+      )
+    }
+
+    <div class='border-l-2 border-accent bg-accent/5 pl-4 py-3 mb-6'>
+      <p class='text-sm text-ink leading-relaxed'>
+        Always use <strong>SPMH DONATION</strong> as your payment reference.
+      </p>
+    </div>
+
+    <p class='text-sm text-ink-soft leading-relaxed'>
+      After the transfer, email
+      <a
+        href={`mailto:${site.givingEmail}`}
+        class='text-primary font-semibold underline underline-offset-2'>
+        {site.givingEmail}
+      </a>
+      with your transaction reference so we can send your receipt.
+    </p>
+  </div>
+</div>

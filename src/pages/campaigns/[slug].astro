@@ -1,0 +1,421 @@
+---
+import LandingLayout from '../../layout/LandingLayout.astro';
+import { campaigns, formatKes } from '../../data/campaigns';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return campaigns.map((c) => ({
+    params: { slug: c.slug },
+    props: { campaign: c },
+  }));
+}
+
+const { campaign: c } = Astro.props;
+const pct =
+  c.target > 0 ? Math.min(100, Math.round((c.raised / c.target) * 100)) : 0;
+const showProgress = c.raised > 0;
+
+const statusLabel =
+  c.status === 'active'
+    ? 'Fundraising now'
+    : c.status === 'planning'
+      ? 'Planning stage'
+      : 'Completed';
+
+const jsonLd = {
+  '@type': 'DonateAction',
+  name: c.name,
+  description: c.summary,
+  recipient: {
+    '@type': 'NGO',
+    name: site.legalName,
+    url: site.url,
+  },
+  target: {
+    '@type': 'EntryPoint',
+    urlTemplate: `${site.url}/donate?campaign=${c.slug}`,
+  },
+};
+---
+
+<LandingLayout
+  title={c.name}
+  description={c.summary}
+  image={c.image}
+  canonical={`/campaigns/${c.slug}`}
+  jsonLd={jsonLd}>
+  <!-- ============================================================
+       BEAT 1 — HERO. Full-bleed campaign image.
+  ============================================================= -->
+  <section
+    class='relative min-h-[520px] md:min-h-[640px] lg:min-h-[680px] flex items-end overflow-hidden'>
+    <img
+      src={c.image}
+      alt={c.imageAlt}
+      class='absolute inset-0 w-full h-full object-cover'
+      loading='eager'
+      fetchpriority='high'
+    />
+    <div
+      class='absolute inset-0 bg-gradient-to-t from-secondary via-secondary/60 to-transparent'
+      aria-hidden='true'>
+    </div>
+
+    <div class='relative container-prose pb-16 md:pb-24 pt-40'>
+      <div class='max-w-3xl'>
+        <p class='eyebrow-gold !text-gold mb-6'>{statusLabel}</p>
+
+        <h1
+          class='font-display text-3xl md:text-5xl lg:text-6xl font-medium text-white leading-[1.05] tracking-tight mb-6 text-balance'
+          style='letter-spacing: -0.028em;'>
+          {c.name}
+        </h1>
+
+        <p
+          class='text-lg md:text-xl text-white/85 leading-relaxed mb-8 max-w-2xl text-pretty'>
+          {c.summary}
+        </p>
+
+        {
+          showProgress ? (
+            <div class='max-w-md'>
+              <div class='flex items-baseline justify-between mb-3'>
+                <span class='text-xs font-bold uppercase tracking-[0.18em] text-white/60'>
+                  Funded
+                </span>
+                <span class='font-mono text-2xl font-medium text-gold tabular-nums'>
+                  {pct}%
+                </span>
+              </div>
+              <div class='w-full h-1 bg-white/15 overflow-hidden mb-3'>
+                <div class='h-full bg-gold' style={`width: ${pct}%`} />
+              </div>
+              <p class='text-sm text-white/70 font-mono'>
+                {formatKes(c.raised)} of {formatKes(c.target)}
+              </p>
+            </div>
+          ) : (
+            <p class='text-sm text-white/70'>
+              Goal &middot;
+              <span class='font-mono font-semibold text-white'>
+                {formatKes(c.target)}
+              </span>
+            </p>
+          )
+        }
+
+        <div class='mt-8 flex flex-wrap items-center gap-x-8 gap-y-4'>
+          <a
+            href='#how-to-give'
+            class='btn-primary !bg-gold !text-secondary hover:!bg-white !px-7 !py-3.5 !text-base'>
+            Give to this campaign
+          </a>
+          <a
+            href={`mailto:${site.givingEmail}?subject=Enquiry: ${encodeURIComponent(c.name)}`}
+            class='text-gold font-semibold hover:underline underline-offset-4'>
+            Ask a question →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 2 — THE GAP. Photo + explanation.
+  ============================================================= -->
+  <section class='bg-secondary text-white'>
+    <div class='grid lg:grid-cols-2'>
+      <!-- Image side -->
+      <div
+        class='relative min-h-[320px] sm:min-h-[420px] lg:min-h-[640px] order-2 lg:order-1'>
+        {
+          c.gapImage ? (
+            <>
+              <img
+                src={c.gapImage}
+                alt={c.gapImageAlt || c.imageAlt}
+                class='absolute inset-0 w-full h-full object-cover'
+                loading='lazy'
+              />
+              <div
+                class='absolute inset-0 bg-gradient-to-r from-transparent to-secondary/30'
+                aria-hidden='true'
+              />
+            </>
+          ) : (
+            <div class='absolute inset-0 bg-gradient-to-br from-secondary to-primary'>
+              <div class='absolute inset-0 flex items-center justify-center p-12'>
+                <p
+                  class='font-display text-2xl md:text-4xl text-white/30 text-center leading-tight max-w-md'
+                  style='letter-spacing: -0.02em;'>
+                  {c.name}
+                </p>
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Copy side -->
+      <div class='flex items-center order-1 lg:order-2'>
+        <div
+          class='w-full px-6 md:px-10 lg:px-16 xl:px-24 py-16 md:py-24 lg:py-32'>
+          <p class='eyebrow-gold !text-gold mb-6'>What&rsquo;s missing</p>
+
+          <h2
+            class='font-display text-2xl md:text-4xl lg:text-5xl font-medium text-white leading-[1.1] mb-8 text-balance'
+            style='letter-spacing: -0.025em;'>
+            {c.gap}
+          </h2>
+
+          <p
+            class='text-base md:text-lg text-white/80 leading-relaxed mb-6 text-pretty max-w-lg'>
+            {c.description}
+          </p>
+
+          <div class='border-l-2 border-gold pl-5 mt-10 max-w-lg'>
+            <p
+              class='text-[11px] font-bold uppercase tracking-[0.18em] text-gold mb-3'>
+              What changes
+            </p>
+            <p class='text-base text-white/85 leading-relaxed text-pretty'>
+              {c.impact}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 3 — THE ASK. How to give to this campaign.
+  ============================================================= -->
+  <section id='how-to-give' class='bg-cream py-16 md:py-24'>
+    <div class='container-prose'>
+      <div
+        class='grid lg:grid-cols-12 gap-10 lg:gap-16 mb-12 md:mb-16 items-end'>
+        <div class='lg:col-span-7'>
+          <p class='eyebrow-gold mb-5'>How to give</p>
+          <h2 class='display text-3xl md:text-5xl mb-5 text-balance'>
+            Give to this campaign.
+          </h2>
+        </div>
+        <div class='lg:col-span-5'>
+          <p class='text-base text-ink-soft leading-relaxed text-pretty'>
+            Online giving launches soon. Until then, use either of the methods
+            below and include the campaign reference.
+          </p>
+        </div>
+      </div>
+
+      <!-- Two method cards -->
+      <div class='grid md:grid-cols-2 gap-5 md:gap-6 mb-8'>
+        <!-- M-Pesa -->
+        <div class='bg-white border border-line'>
+          <div
+            class='flex items-center justify-between px-6 md:px-8 py-5 border-b border-line'>
+            <div class='flex items-center gap-3'>
+              <span
+                class='inline-flex items-center justify-center w-9 h-9 bg-green-50'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 24 24'
+                  fill='currentColor'
+                  class='w-5 h-5 text-green-700'>
+                  <path
+                    d='M10.5 18.75a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z'
+                  ></path>
+                  <path
+                    fill-rule='evenodd'
+                    d='M8.625.75A3.375 3.375 0 0 0 5.25 4.125v15.75a3.375 3.375 0 0 0 3.375 3.375h6.75a3.375 3.375 0 0 0 3.375-3.375V4.125A3.375 3.375 0 0 0 15.375.75h-6.75ZM7.5 4.125C7.5 3.504 8.004 3 8.625 3H9.75v.375c0 .621.504 1.125 1.125 1.125h2.25c.621 0 1.125-.504 1.125-1.125V3h1.125c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-6.75A1.125 1.125 0 0 1 7.5 19.875V4.125Z'
+                    clip-rule='evenodd'></path>
+                </svg>
+              </span>
+              <div>
+                <p class='font-display font-semibold text-ink leading-tight'>
+                  M-Pesa
+                </p>
+                <p class='text-[11px] uppercase tracking-wider text-ink-soft'>
+                  Buy Goods &amp; Services
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class='p-6 md:p-8'>
+            <p
+              class='text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-3'>
+              Till number
+            </p>
+            {
+              site.mpesaTill !== 'TODO' ? (
+                <p class='font-mono text-4xl md:text-5xl font-medium text-ink tracking-wider tabular-nums mb-6'>
+                  {site.mpesaTill}
+                </p>
+              ) : (
+                <p class='text-sm text-accent font-semibold mb-6'>
+                  Till number pending — email us to give today.
+                </p>
+              )
+            }
+
+            <p
+              class='text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-3'>
+              Campaign reference
+            </p>
+            <p
+              class='font-mono text-base md:text-lg font-semibold text-primary tracking-wide mb-6 break-all'>
+              {c.slug.toUpperCase()}
+            </p>
+
+            <p class='text-sm text-ink-soft leading-relaxed'>
+              Enter this reference in your M-Pesa confirmation SMS to us so we
+              can allocate your gift correctly.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bank -->
+        <div class='bg-white border border-line'>
+          <div
+            class='flex items-center gap-3 px-6 md:px-8 py-5 border-b border-line'>
+            <span
+              class='inline-flex items-center justify-center w-9 h-9 bg-surface-2'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                stroke-width='1.5'
+                class='w-5 h-5 text-primary'>
+                <path
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  d='M3 10h18M5 6h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z'
+                ></path>
+                <circle cx='12' cy='14' r='2'></circle>
+              </svg>
+            </span>
+            <div>
+              <p class='font-display font-semibold text-ink leading-tight'>
+                Bank transfer
+              </p>
+              <p class='text-[11px] uppercase tracking-wider text-ink-soft'>
+                For larger gifts
+              </p>
+            </div>
+          </div>
+          <div class='p-6 md:p-8'>
+            <p
+              class='text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-3'>
+              Campaign reference
+            </p>
+            <p
+              class='font-mono text-base md:text-lg font-semibold text-primary tracking-wide mb-6 break-all'>
+              {c.slug.toUpperCase()}
+            </p>
+
+            <p class='text-sm text-ink-soft leading-relaxed mb-6'>
+              Use the campaign reference on the transfer. Send us the
+              confirmation so we can match your gift to this project.
+            </p>
+
+            <a
+              href='/donate'
+              class='text-sm text-primary font-semibold hover:underline underline-offset-4'>
+              See full bank details →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmation instruction -->
+      <div
+        class='bg-white border border-line px-6 md:px-8 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
+        <p class='text-sm text-ink-soft leading-relaxed'>
+          After giving, email your confirmation to
+          <a
+            href={`mailto:${site.givingEmail}`}
+            class='text-primary font-semibold underline underline-offset-2 break-all'>
+            {site.givingEmail}
+          </a>
+          so we can send your receipt.
+        </p>
+        <a
+          href={`mailto:${site.givingEmail}?subject=Gift to ${encodeURIComponent(c.name)}`}
+          class='text-sm text-primary font-semibold hover:underline underline-offset-4 whitespace-nowrap'>
+          Email confirmation →
+        </a>
+      </div>
+
+      <!-- Governance note -->
+      <p class='text-xs text-ink-soft leading-relaxed max-w-2xl mt-8'>
+        Restricted gifts are held against the named project. If a project is
+        fully funded or discontinued, remaining funds are redeployed to the
+        closest matching clinical need, with donor notification where
+        practicable.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 4 — TRUST CLOSE. Three promises.
+  ============================================================= -->
+  <section class='bg-surface py-16 md:py-24 border-t border-line'>
+    <div class='container-prose'>
+      <div class='max-w-2xl mb-12'>
+        <p class='eyebrow-gold mb-5'>Every donor deserves proof</p>
+        <h2 class='display text-2xl md:text-4xl text-balance'>
+          What we promise in return.
+        </h2>
+      </div>
+
+      <div class='grid md:grid-cols-3 gap-px bg-line border border-line'>
+        {
+          [
+            {
+              n: '01',
+              title: 'A receipt for every gift',
+              body: 'Sent within 48 hours, with a unique reference number and the hospital’s KRA details.',
+            },
+            {
+              n: '02',
+              title: 'Progress, kept honest',
+              body: 'Campaign totals reflect actual funds received. We do not inflate progress.',
+            },
+            {
+              n: '03',
+              title: 'Consent, always',
+              body: 'We never publish a donor’s name without explicit, revocable consent.',
+            },
+          ].map((p) => (
+            <div class='bg-surface p-8 md:p-10 flex flex-col'>
+              <p class='font-mono text-xs font-semibold text-primary mb-6 tabular-nums'>
+                {p.n}
+              </p>
+              <h3 class='font-display text-lg font-semibold text-ink mb-3 leading-tight'>
+                {p.title}
+              </h3>
+              <p class='text-sm text-ink-soft leading-relaxed flex-1'>
+                {p.body}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Back to campaigns -->
+      <div class='mt-12 flex flex-wrap items-center gap-x-8 gap-y-4'>
+        <a
+          href='/campaigns'
+          class='text-primary font-semibold hover:underline underline-offset-4'>
+          ← See all campaigns
+        </a>
+        <a
+          href='/how-it-helps'
+          class='text-sm text-ink-soft hover:text-ink underline underline-offset-4'>
+          How donations are used
+        </a>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

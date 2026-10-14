@@ -1,0 +1,291 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import { site } from '../data/site';
+import { allocation } from '../data/impact';
+
+const jsonLd = {
+  '@type': 'AboutPage',
+  name: "How It Helps — St. Paul's Mission Hospital",
+  description:
+    "Where donations to St. Paul's Mission Hospital go, what they fund, and how we stay accountable.",
+  url: `${site.url}/how-it-helps`,
+};
+---
+
+<LandingLayout
+  title='How It Helps'
+  description="See what donations to St. Paul's Mission Hospital fund — and why they matter."
+  canonical='/how-it-helps'
+  jsonLd={jsonLd}>
+  <!-- ============================================================
+       BEAT 1 — OPENING. Full-bleed image. Short copy.
+  ============================================================= -->
+  <section
+    class='relative min-h-[520px] md:min-h-[680px] lg:min-h-[720px] flex items-end overflow-hidden'>
+    <img
+      src='/img/53.jpg'
+      alt="A mother and her newborn at St. Paul's Mission Hospital"
+      class='absolute inset-0 w-full h-full object-cover'
+      loading='eager'
+      fetchpriority='high'
+    />
+
+    <!-- Gradient scrim so text is legible over photo -->
+    <div
+      class='absolute inset-0 bg-gradient-to-t from-secondary via-secondary/60 to-transparent'
+      aria-hidden='true'>
+    </div>
+
+    <div class='relative container-prose pb-16 md:pb-24 pt-40'>
+      <p class='eyebrow-gold !text-gold mb-6'>Her name is Grace</p>
+      <h1
+        class='font-display text-3xl md:text-5xl lg:text-6xl font-medium text-white leading-[1.08] tracking-tight max-w-3xl text-balance'
+        style='letter-spacing: -0.025em;'>
+        She arrived at our gate in labour, twelve kilometres from home, in a
+        matatu with no fuel.
+      </h1>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 1.5 — Grace's story. Two short paragraphs. Big type.
+  ============================================================= -->
+  <section class='bg-cream py-16 md:py-24'>
+    <div class='container-prose'>
+      <div class='max-w-2xl mx-auto'>
+        <p
+          class='text-xl md:text-2xl text-ink leading-relaxed text-pretty mb-6'>
+          Our midwives met her at the gate. Within forty minutes, she had
+          delivered a healthy baby girl. Both were discharged the next morning.
+        </p>
+        <p class='text-base text-ink-soft leading-relaxed text-pretty'>
+          Grace was one of 604 mothers who delivered safely at SPMH last year.
+          She came because she trusted us. That trust is the whole reason this
+          hospital exists.
+        </p>
+      </div>
+
+      <div
+        class='max-w-2xl mx-auto mt-12 pt-8 border-t border-line grid grid-cols-3 gap-6'>
+        <div>
+          <p
+            class='font-mono text-3xl md:text-4xl font-medium text-primary leading-none mb-2 tabular-nums'>
+            604
+          </p>
+          <p class='text-xs text-ink-soft leading-relaxed'>
+            mothers delivered safely last year
+          </p>
+        </div>
+        <div>
+          <p
+            class='font-mono text-3xl md:text-4xl font-medium text-primary leading-none mb-2 tabular-nums'>
+            3,699
+          </p>
+          <p class='text-xs text-ink-soft leading-relaxed'>
+            admissions in the same year
+          </p>
+        </div>
+        <div>
+          <p
+            class='font-mono text-3xl md:text-4xl font-medium text-accent leading-none mb-2 tabular-nums'>
+            0
+          </p>
+          <p class='text-xs text-ink-soft leading-relaxed'>
+            ICU beds for the 250,000 people we serve
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 2 — THE GAP. One photograph. One truth.
+  ============================================================= -->
+  <section class='bg-secondary text-white'>
+    <div class='grid lg:grid-cols-2'>
+      <!-- Image — the actual gap, full bleed to left -->
+      <div
+        class='relative min-h-[320px] sm:min-h-[420px] lg:min-h-[640px] order-2 lg:order-1'>
+        <img
+          src='/img/3.jpg'
+          alt='The corridor at SPMH where critically ill patients are stabilised before referral'
+          class='absolute inset-0 w-full h-full object-cover'
+          loading='lazy'
+        />
+        <div
+          class='absolute inset-0 bg-gradient-to-r from-secondary/40 to-transparent lg:from-transparent lg:to-secondary/30'
+          aria-hidden='true'>
+        </div>
+      </div>
+
+      <!-- Copy -->
+      <div class='flex items-center order-1 lg:order-2'>
+        <div
+          class='w-full px-6 md:px-10 lg:px-16 xl:px-24 py-16 md:py-24 lg:py-32'>
+          <p class='eyebrow-gold !text-gold mb-6'>
+            But we can&rsquo;t save everyone
+          </p>
+          <h2
+            class='font-display text-3xl md:text-4xl lg:text-5xl font-medium text-white leading-[1.1] mb-8 text-balance'
+            style='letter-spacing: -0.025em;'>
+            When a patient needs intensive care, we call an ambulance.
+          </h2>
+          <p
+            class='text-base md:text-lg text-white/80 leading-relaxed mb-6 text-pretty max-w-lg'>
+            Some of them don&rsquo;t make it to Homa Bay County Referral
+            Hospital, an hour away. Some of them don&rsquo;t make it to Kisii,
+            2 hours further. A mother with severe bleeding. A child with
+            sepsis. A fisherman with a head injury.
+          </p>
+          <p
+            class='text-base md:text-lg text-white/80 leading-relaxed mb-10 text-pretty max-w-lg'>
+            We can do better. With an ICU at SPMH, most of these patients would
+            stay here — with the team who knows them, twenty minutes from home.
+          </p>
+          <a
+            href='/campaigns/icu-hdu'
+            class='btn-primary !bg-gold !text-secondary hover:!bg-white'>
+            Help build the ICU
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 3 — THE ASK. Staff quote + allocation + CTA.
+  ============================================================= -->
+  <section class='bg-cream py-20 md:py-28'>
+    <div class='container-prose'>
+      <!-- Staff quote — pull quote, big -->
+      <div class='max-w-4xl mx-auto text-center mb-20 md:mb-28'>
+        <p class='eyebrow-gold mb-8 justify-center'>In their words</p>
+        <blockquote
+          class='font-display text-2xl md:text-4xl lg:text-5xl font-medium leading-[1.2] text-ink text-balance'
+          style='letter-spacing: -0.022em;'>
+          &ldquo;We stabilise them as far as we can. Then we call the ambulance
+          and we wait. Sometimes forty minutes. Sometimes an hour.
+          <em class='not-italic text-accent'
+            >Every minute costs us something we can&rsquo;t get back.</em
+          >&rdquo;
+        </blockquote>
+        <p class='text-sm text-ink-soft mt-8'>
+          <span class='font-semibold text-ink'>George Ayot</span>
+          &middot; Senior Nurse, SPMH
+        </p>
+      </div>
+
+      <!-- Where the money goes — quiet, single-column -->
+      <div class='max-w-3xl mx-auto border-t border-line pt-14 md:pt-20'>
+        <p class='eyebrow-gold mb-6'>Where it goes</p>
+        <h2 class='display text-3xl md:text-4xl mb-10 text-balance'>
+          How every KES 100 is spent.
+        </h2>
+
+        <ul class='space-y-6 mb-12'>
+          {
+            allocation.map((a) => (
+              <li>
+                <div class='flex items-baseline justify-between mb-3 gap-4'>
+                  <span class='text-sm font-semibold text-ink'>{a.label}</span>
+                  <span class='font-mono text-lg md:text-xl font-medium text-primary tabular-nums'>
+                    {a.percentage}%
+                  </span>
+                </div>
+                <div class='w-full h-1 bg-white border border-line overflow-hidden'>
+                  <div
+                    class='h-full bg-primary'
+                    style={`width: ${a.percentage}%`}
+                  />
+                </div>
+                <p class='text-xs text-ink-soft mt-3 leading-relaxed'>
+                  {a.description}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+
+        <!-- Three promises, not six -->
+        <div class='border-t border-line pt-10'>
+          <p
+            class='text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-6'>
+            And three promises
+          </p>
+          <ul class='space-y-5'>
+            {
+              [
+                'A receipt for every gift, sent within 48 hours.',
+                'Audited accounts published every year.',
+                'Donor names published only with your explicit consent.',
+              ].map((line, i) => (
+                <li class='flex items-start gap-4'>
+                  <span class='shrink-0 font-mono text-xs font-semibold text-primary tabular-nums pt-1'>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span class='text-base text-ink leading-relaxed'>{line}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class='text-xs text-ink-soft mt-8 leading-relaxed'>
+            Read the full commitments in our
+            <a
+              href='/annual-reports'
+              class='text-primary font-semibold underline underline-offset-2'
+              >annual reports</a
+            >
+            and <a
+              href='/terms-of-giving'
+              class='text-primary font-semibold underline underline-offset-2'
+              >Terms of Giving</a
+            >.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CLOSING CTA — 50/50, image bleeds right
+  ============================================================= -->
+  <section class='bg-white border-t border-line'>
+    <div class='grid lg:grid-cols-2'>
+      <div class='flex items-center'>
+        <div
+          class='w-full px-6 md:px-10 lg:px-16 xl:px-24 py-16 md:py-24 lg:py-32'>
+          <p class='eyebrow-gold mb-6'>Give with confidence</p>
+          <h2 class='display text-3xl md:text-5xl mb-6 text-balance max-w-xl'>
+            You know where it goes.<br class='hidden md:block' />
+            Now help us send it there.
+          </h2>
+          <p
+            class='text-lg text-ink-soft leading-relaxed mb-10 max-w-lg text-pretty'>
+            Every gift is receipted, tracked, and published. If you have
+            questions we haven&rsquo;t answered, ask us.
+          </p>
+          <div class='flex flex-wrap items-center gap-x-8 gap-y-4'>
+            <a href='/donate' class='btn-primary !px-7 !py-3.5 !text-base'
+              >Give now</a
+            >
+            <a
+              href={`mailto:${site.givingEmail}?subject=Question about how donations are used`}
+              class='text-primary font-semibold hover:underline underline-offset-4'>
+              Ask us a question →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class='relative min-h-[320px] sm:min-h-[420px] lg:min-h-[600px] bg-gradient-to-br from-secondary to-primary'>
+        <img
+          src='/gallery/24.jpg'
+          alt=''
+          class='absolute inset-0 w-full h-full object-cover'
+          loading='lazy'
+        />
+      </div>
+    </div>
+  </section>
+</LandingLayout>
