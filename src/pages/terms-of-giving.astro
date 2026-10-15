@@ -1,0 +1,185 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import { site } from '../data/site';
+
+const updated = '2026-01-01';
+
+const jsonLd = {
+  '@type': 'WebPage',
+  name: "Terms of Giving — St. Paul's Mission Hospital",
+  description:
+    "The terms under which St. Paul's Mission Hospital accepts and manages donations.",
+  url: `${site.url}/terms-of-giving`,
+};
+---
+
+<LandingLayout
+  title='Terms of Giving'
+  description="The terms under which St. Paul's Mission Hospital accepts and manages donations."
+  canonical='/terms-of-giving'
+  jsonLd={jsonLd}>
+  <section class='bg-cream border-b border-line'>
+    <div class='container-prose py-16 md:py-20'>
+      <div class='max-w-3xl'>
+        <p class='eyebrow-gold mb-6'>Legal</p>
+        <h1 class='display text-4xl md:text-6xl mb-6 text-balance'>
+          Terms of Giving
+        </h1>
+        <p class='text-sm text-ink-soft'>Last updated &middot; {updated}</p>
+      </div>
+    </div>
+  </section>
+
+  <article class='bg-white'>
+    <div class='container-prose py-16 md:py-20'>
+      <div class='max-w-3xl mx-auto'>
+        <div class='border-l-2 border-accent bg-accent/5 px-5 py-4 mb-12'>
+          <p class='text-sm text-ink leading-relaxed'>
+            Under legal review. For questions, email
+            <a
+              href={`mailto:${site.givingEmail}`}
+              class='text-primary font-semibold underline underline-offset-2'>
+              {site.givingEmail}
+            </a>.
+          </p>
+        </div>
+
+        <div class='space-y-10 text-ink-soft leading-relaxed'>
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              1. Acceptance
+            </h2>
+            <p>
+              By making a donation to {site.legalName}, you accept these Terms
+              of Giving.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              2. Use of donations
+            </h2>
+            <p>
+              Unrestricted gifts support SPMH's general clinical, outreach, and
+              operational needs. Restricted gifts are held against the
+              designated campaign or department. If a restricted project is
+              fully funded or discontinued, remaining funds are redeployed to
+              the closest matching clinical need.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              3. Receipting
+            </h2>
+            <p>
+              Every donation receives an official SPMH receipt with a unique
+              number and the hospital's KRA details. Receipts are issued by
+              email. If you require a physical receipt, contact <a
+                href={`mailto:${site.givingEmail}`}
+                class='text-primary font-semibold underline underline-offset-2'
+                >{site.givingEmail}</a
+              >.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              4. Recurring gifts
+            </h2>
+            <p>
+              Recurring gifts can be cancelled at any time. Cancellation takes
+              effect on the next scheduled payment. Already-processed payments
+              are not reversed.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              5. Refunds
+            </h2>
+            <p>
+              Refunds are governed by our <a
+                href='/refund-policy'
+                class='text-primary font-semibold underline underline-offset-2'
+                >Refund Policy</a
+              >.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              6. Tax deductibility
+            </h2>
+            <p>
+              Donations may be deductible in Kenya under the Income Tax Act
+              where the recipient qualifies as an approved charitable
+              institution. Confirm SPMH's status with Finance. We do not provide
+              tax advice.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              7. AML / source of funds
+            </h2>
+            <p>
+              For gifts above KES 1,000,000 we may request documentation
+              confirming the source of funds, in line with our AML policy.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              8. Donor recognition
+            </h2>
+            <p>
+              Names appear on our wall of donors only with explicit, revocable
+              consent. Donors may choose to give anonymously.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              9. Prohibited gifts
+            </h2>
+            <p>
+              We reserve the right to decline any donation that would compromise
+              SPMH's mission, independence, or legal standing.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              10. Governing law
+            </h2>
+            <p>These terms are governed by the laws of Kenya.</p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              11. Contact
+            </h2>
+            <p>
+              Giving team: <a
+                href={`mailto:${site.givingEmail}`}
+                class='text-primary font-semibold underline underline-offset-2'
+                >{site.givingEmail}</a>
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </article>
+</LandingLayout>

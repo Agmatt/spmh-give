@@ -1,0 +1,155 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import { site } from '../data/site';
+
+const updated = '2026-01-01';
+
+const jsonLd = {
+  '@type': 'WebPage',
+  name: "Refund Policy — St. Paul's Mission Hospital",
+  description:
+    "St. Paul's Mission Hospital refund policy for donations made by card, M-Pesa, or bank transfer.",
+  url: `${site.url}/refund-policy`,
+};
+---
+
+<LandingLayout
+  title='Refund Policy'
+  description="St. Paul's Mission Hospital refund policy for donations made by card, M-Pesa, or bank transfer."
+  canonical='/refund-policy'
+  jsonLd={jsonLd}>
+  <section class='bg-cream border-b border-line'>
+    <div class='container-prose py-16 md:py-20'>
+      <div class='max-w-3xl'>
+        <p class='eyebrow-gold mb-6'>Legal</p>
+        <h1 class='display text-4xl md:text-6xl mb-6 text-balance'>
+          Refund Policy
+        </h1>
+        <p class='text-sm text-ink-soft'>Last updated &middot; {updated}</p>
+      </div>
+    </div>
+  </section>
+
+  <article class='bg-white'>
+    <div class='container-prose py-16 md:py-20'>
+      <div class='max-w-3xl mx-auto'>
+        <div class='border-l-2 border-accent bg-accent/5 px-5 py-4 mb-12'>
+          <p class='text-sm text-ink leading-relaxed'>
+            Under review by Finance and legal counsel. For refund requests,
+            email
+            <a
+              href={`mailto:${site.givingEmail}`}
+              class='text-primary font-semibold underline underline-offset-2'>
+              {site.givingEmail}
+            </a>.
+          </p>
+        </div>
+
+        <div class='space-y-10 text-ink-soft leading-relaxed'>
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              1. Scope
+            </h2>
+            <p>
+              This policy applies to donations made to {site.legalName} via M-Pesa,
+              card, PayPal, or bank transfer.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              2. Card and PayPal donations
+            </h2>
+            <p>
+              Refund requests for card or PayPal donations may be made within <strong
+                class='text-ink'>14 days</strong
+              > of the transaction, provided the funds have not already been deployed
+              to a restricted project. Contact <a
+                href={`mailto:${site.givingEmail}`}
+                class='text-primary font-semibold underline underline-offset-2'
+                >{site.givingEmail}</a
+              > with your receipt number.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              3. M-Pesa donations
+            </h2>
+            <p>
+              M-Pesa reversals are subject to Safaricom&rsquo;s reversal window
+              and policy. Requests outside this window cannot be reversed.
+              Contact us immediately if a mistake has been made.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              4. Bank transfers
+            </h2>
+            <p>
+              Bank transfer refunds are processed manually within <strong
+                class='text-ink'>14 days</strong
+              > of an approved request. Bank charges, where applicable, are deducted
+              from the refund.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              5. Recurring gifts
+            </h2>
+            <p>
+              Recurring gifts can be cancelled at any time. Cancellation
+              prevents future payments but does not reverse already-processed
+              payments.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              6. Approval
+            </h2>
+            <p>
+              All refunds require approval by the designated SPMH approving
+              officer. Refunds over KES 100,000 additionally require Finance
+              Lead approval.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              7. Exceptions
+            </h2>
+            <p>
+              We may decline a refund where the donation has already been
+              deployed to a restricted project, where the request is outside the
+              refund window, or where we suspect fraud or abuse.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              8. Contact
+            </h2>
+            <p>
+              Email <a
+                href={`mailto:${site.givingEmail}`}
+                class='text-primary font-semibold underline underline-offset-2'
+                >{site.givingEmail}</a
+              > with your receipt number and reason for the request.
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </article>
+</LandingLayout>

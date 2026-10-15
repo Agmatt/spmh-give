@@ -1,0 +1,223 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import { site } from '../data/site';
+
+const updated = '2026-01-01';
+
+const jsonLd = {
+  '@type': 'WebPage',
+  name: "Privacy Policy — St. Paul's Mission Hospital",
+  description:
+    "How St. Paul's Mission Hospital collects, uses, and protects your personal data.",
+  url: `${site.url}/privacy`,
+};
+---
+
+<LandingLayout
+  title='Privacy Policy'
+  description="How St. Paul's Mission Hospital collects, uses, and protects your personal data — in line with Kenya's Data Protection Act 2019."
+  canonical='/privacy'
+  jsonLd={jsonLd}>
+  <section class='bg-cream border-b border-line'>
+    <div class='container-prose py-16 md:py-20'>
+      <div class='max-w-3xl'>
+        <p class='eyebrow-gold mb-6'>Legal</p>
+        <h1 class='display text-4xl md:text-6xl mb-6 text-balance'>
+          Privacy Policy
+        </h1>
+        <p class='text-sm text-ink-soft'>
+          Last updated &middot; {updated}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <article class='bg-white'>
+    <div class='container-prose py-16 md:py-20'>
+      <div class='max-w-3xl mx-auto'>
+        <div class='border-l-2 border-accent bg-accent/5 px-5 py-4 mb-12'>
+          <p class='text-sm text-ink leading-relaxed'>
+            This policy is under review by SPMH&rsquo;s Data Protection Officer
+            and legal counsel. For questions or requests, email
+            <a
+              href={`mailto:${site.dpoEmail}`}
+              class='text-primary font-semibold underline underline-offset-2'>
+              {site.dpoEmail}
+            </a>.
+          </p>
+        </div>
+
+        <div class='space-y-10 text-ink-soft leading-relaxed'>
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              1. Who we are
+            </h2>
+            <p>
+              {site.legalName} is a faith-based Level 4 mission hospital under the
+              Catholic Diocese of Homa Bay, operating as a non-profit within Kenya's
+              health system.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              2. What data we collect
+            </h2>
+            <p class='mb-3'>When you donate or contact us, we collect:</p>
+            <ul class='space-y-2 pl-5'>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >Your name, email address, and phone number</span>
+              </li>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >Country of residence (for receipting)</span>
+              </li>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >Donation amount, campaign designation, and frequency</span>
+              </li>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >Payment method and transaction reference (never full card
+                  numbers)</span>
+              </li>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >Any message or communication you send us</span>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              3. How we use your data
+            </h2>
+            <ul class='space-y-2 pl-5'>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >To process your donation and issue an official receipt</span>
+              </li>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >To send acknowledgment emails and impact updates you opt into</span>
+              </li>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >To meet legal, tax, and AML obligations</span>
+              </li>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >To maintain our audit trail</span>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              4. Legal basis
+            </h2>
+            <p>
+              We process your data under the Kenya Data Protection Act 2019 on
+              the basis of: (a) your consent, (b) performance of a contract
+              (processing your gift), and (c) compliance with legal obligations.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              5. Who we share data with
+            </h2>
+            <p class='mb-3'>
+              We do not sell, rent, or trade your data. We share it only with:
+            </p>
+            <ul class='space-y-2 pl-5'>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >Payment processors (Safaricom M-Pesa, Stripe, PayPal) to
+                  complete your transaction</span>
+              </li>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >Supabase (hosting, EU/Frankfurt) as our data processor</span>
+              </li>
+              <li class='flex items-start gap-3'>
+                <span class='shrink-0 mt-2.5 w-3 h-px bg-primary'></span><span
+                  >Regulators or auditors where legally required</span>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              6. Data retention
+            </h2>
+            <p>
+              Donation and receipt records are retained for the period required
+              by KRA and our auditors. Contact records are retained while
+              consent is active, and deleted upon request.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              7. Your rights
+            </h2>
+            <p>
+              Under the DPA 2019 you have the right to access, correct, delete,
+              restrict, or object to processing of your data, and to withdraw
+              consent. Email <a
+                href={`mailto:${site.dpoEmail}`}
+                class='text-primary font-semibold underline underline-offset-2'
+                >{site.dpoEmail}</a
+              > to exercise these rights.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              8. Cookies
+            </h2>
+            <p>
+              We use minimal, privacy-respecting cookies required for the site
+              to function. We do not use third-party advertising trackers.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              9. Complaints
+            </h2>
+            <p>
+              You may lodge a complaint with the Office of the Data Protection
+              Commissioner (ODPC) of Kenya. We would appreciate the opportunity
+              to resolve your concern first.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              class='font-display text-xl md:text-2xl font-semibold text-ink mb-4'>
+              10. Contact
+            </h2>
+            <p>
+              Data Protection Officer: <a
+                href={`mailto:${site.dpoEmail}`}
+                class='text-primary font-semibold underline underline-offset-2 break-all'
+                >{site.dpoEmail}</a>
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </article>
+</LandingLayout>

@@ -1,0 +1,297 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import { site } from '../data/site';
+
+const jsonLd = {
+  '@type': 'ContactPage',
+  name: "Contact Giving — St. Paul's Mission Hospital",
+  description:
+    'Contact the SPMH giving team for major gifts, legacy bequests, corporate partnerships, or general donation enquiries.',
+  url: `${site.url}/contact-giving`,
+};
+
+const topics = [
+  'General giving enquiry',
+  'Major gift',
+  'Legacy bequest',
+  'Corporate partnership',
+  'Diaspora giving',
+  'Receipting',
+  'Other',
+];
+---
+
+<LandingLayout
+  title='Contact Giving'
+  description='Contact the SPMH giving team for major gifts, legacy bequests, corporate partnerships, or general donation enquiries.'
+  canonical='/contact-giving'
+  jsonLd={jsonLd}>
+  <!-- ============================================================
+       BEAT 1 — HERO. Split, quiet.
+  ============================================================= -->
+  <section class='bg-cream border-b border-line'>
+    <div class='container-prose py-16 md:py-24'>
+      <div class='grid lg:grid-cols-12 gap-10 lg:gap-16 items-end'>
+        <div class='lg:col-span-7'>
+          <p class='eyebrow-gold mb-6'>Get in touch</p>
+          <h1 class='display text-4xl md:text-6xl mb-6 text-balance'>
+            Talk to the giving team.
+          </h1>
+          <p class='text-lg text-ink-soft leading-relaxed max-w-xl text-pretty'>
+            For major gifts, legacy bequests, corporate partnerships, or any
+            question about giving to SPMH — we&rsquo;re one message away.
+          </p>
+        </div>
+        <div class='lg:col-span-5 lg:col-start-8'>
+          <p
+            class='text-sm text-ink-soft leading-relaxed border-l-2 border-primary pl-5'>
+            We respond within two working days. For urgent matters, email the
+            giving team directly at
+            <a
+              href={`mailto:${site.givingEmail}`}
+              class='text-primary font-semibold underline underline-offset-2 break-all'>
+              {site.givingEmail}
+            </a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 2 — CONTACT METHODS
+  ============================================================= -->
+  <section class='bg-white py-16 md:py-24 border-b border-line'>
+    <div class='container-prose'>
+      <ul class='grid sm:grid-cols-2 gap-px bg-line border border-line'>
+        <!-- Giving team -->
+        <li class='bg-white p-8 md:p-10'>
+          <p
+            class='text-[11px] font-bold uppercase tracking-[0.18em] text-accent mb-4'>
+            General giving
+          </p>
+          <h2
+            class='font-display text-lg font-semibold text-ink mb-2 leading-tight'>
+            Giving team
+          </h2>
+          <p class='text-sm text-ink-soft leading-relaxed mb-6'>
+            One-off gifts, receipting, and general enquiries.
+          </p>
+          <a
+            href={`mailto:${site.givingEmail}`}
+            class='block font-display text-base text-primary font-semibold hover:underline underline-offset-4 break-all'>
+            {site.givingEmail}
+          </a>
+        </li>
+
+        <!-- Major gifts -->
+        <li class='bg-white p-8 md:p-10'>
+          <p
+            class='text-[11px] font-bold uppercase tracking-[0.18em] text-accent mb-4'>
+            Major gifts &amp; legacy
+          </p>
+          <h2
+            class='font-display text-lg font-semibold text-ink mb-2 leading-tight'>
+            Fundraising lead
+          </h2>
+          <p class='text-sm text-ink-soft leading-relaxed mb-6'>
+            Gifts above KES 1M, planned giving, or legacy bequests.
+          </p>
+          <a
+            href={`mailto:${site.givingEmail}?subject=Major gift enquiry`}
+            class='block font-display text-base text-primary font-semibold hover:underline underline-offset-4'>
+            Start a conversation →
+          </a>
+        </li>
+
+        <!-- DPO -->
+        <li class='bg-white p-8 md:p-10'>
+          <p
+            class='text-[11px] font-bold uppercase tracking-[0.18em] text-accent mb-4'>
+            Data &amp; privacy
+          </p>
+          <h2
+            class='font-display text-lg font-semibold text-ink mb-2 leading-tight'>
+            Data Protection Officer
+          </h2>
+          <p class='text-sm text-ink-soft leading-relaxed mb-6'>
+            Consent, data access, correction, or deletion requests.
+          </p>
+          <a
+            href={`mailto:${site.dpoEmail}`}
+            class='block font-display text-base text-primary font-semibold hover:underline underline-offset-4 break-all'>
+            {site.dpoEmail}
+          </a>
+        </li>
+
+        <!-- Postal -->
+        <li class='bg-white p-8 md:p-10'>
+          <p
+            class='text-[11px] font-bold uppercase tracking-[0.18em] text-accent mb-4'>
+            Postal address
+          </p>
+          <h2
+            class='font-display text-lg font-semibold text-ink mb-2 leading-tight'>
+            Visit or write to us
+          </h2>
+          <p class='text-sm text-ink-soft leading-relaxed'>
+            {site.legalName}<br />
+            {site.address.physical}<br />
+            {site.address.postal}
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 3 — FORM
+  ============================================================= -->
+  <section class='bg-cream py-16 md:py-24 border-b border-line'>
+    <div class='container-prose'>
+      <div class='grid lg:grid-cols-12 gap-10 lg:gap-16'>
+        <!-- Copy column -->
+        <div class='lg:col-span-5'>
+          <p class='eyebrow-gold mb-5'>Send us a message</p>
+          <h2 class='display text-3xl md:text-4xl mb-6 text-balance'>
+            Or write to us directly.
+          </h2>
+          <p class='text-base text-ink-soft leading-relaxed mb-8 text-pretty'>
+            Fill in the form and we&rsquo;ll be in touch within two working
+            days. Your details are used only to respond to this enquiry.
+          </p>
+
+          <div class='space-y-4 text-sm text-ink-soft leading-relaxed'>
+            <p>
+              By submitting this form, you agree to SPMH processing your details
+              to respond to your enquiry, in line with our
+              <a
+                href='/privacy'
+                class='text-primary font-semibold underline underline-offset-2'>
+                Privacy Policy
+              </a>.
+            </p>
+            <p>
+              We never sell, rent, or share your information with third parties.
+            </p>
+          </div>
+        </div>
+
+        <!-- Form column -->
+        <div class='lg:col-span-6 lg:col-start-7'>
+          <form
+            class='bg-white border border-line p-6 md:p-10 space-y-6'
+            name='giving-enquiry'
+            method='POST'
+            action='/api/enquiry'>
+            <!-- Honeypot -->
+            <p class='hidden' aria-hidden='true'>
+              <label
+                >Don&rsquo;t fill this out: <input name='bot-field' /></label
+              >
+            </p>
+
+            <div>
+              <label
+                for='name'
+                class='block text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-3'>
+                Your name
+              </label>
+              <input
+                type='text'
+                id='name'
+                name='name'
+                required
+                autocomplete='name'
+                class='w-full border-0 border-b border-line bg-transparent px-0 py-2.5 text-base text-ink focus:border-primary focus:ring-0 outline-none transition-colors'
+              />
+            </div>
+
+            <div>
+              <label
+                for='email'
+                class='block text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-3'>
+                Email
+              </label>
+              <input
+                type='email'
+                id='email'
+                name='email'
+                required
+                autocomplete='email'
+                class='w-full border-0 border-b border-line bg-transparent px-0 py-2.5 text-base text-ink focus:border-primary focus:ring-0 outline-none transition-colors'
+              />
+            </div>
+
+            <div>
+              <label
+                for='phone'
+                class='block text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-3'>
+                Phone <span
+                  class='normal-case tracking-normal font-normal text-ink-soft/70'
+                  >(optional)</span
+                >
+              </label>
+              <input
+                type='tel'
+                id='phone'
+                name='phone'
+                autocomplete='tel'
+                class='w-full border-0 border-b border-line bg-transparent px-0 py-2.5 text-base text-ink focus:border-primary focus:ring-0 outline-none transition-colors'
+              />
+            </div>
+
+            <div>
+              <label
+                for='topic'
+                class='block text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-3'>
+                What is this about?
+              </label>
+              <select
+                id='topic'
+                name='topic'
+                required
+                class='w-full border-0 border-b border-line bg-transparent px-0 py-2.5 text-base text-ink focus:border-primary focus:ring-0 outline-none transition-colors'>
+                <option value=''>Choose one</option>
+                {topics.map((t) => <option value={t}>{t}</option>)}
+              </select>
+            </div>
+
+            <div>
+              <label
+                for='message'
+                class='block text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-3'>
+                Message
+              </label>
+              <textarea
+                id='message'
+                name='message'
+                rows='5'
+                required
+                class='w-full border-0 border-b border-line bg-transparent px-0 py-2.5 text-base text-ink focus:border-primary focus:ring-0 outline-none transition-colors resize-y'
+              ></textarea>
+            </div>
+
+            <label
+              class='flex items-start gap-3 text-xs text-ink-soft leading-relaxed'>
+              <input type='checkbox' name='consent' required class='mt-0.5' />
+              <span>
+                I agree to SPMH processing my details to respond to this
+                enquiry, as described in the
+                <a
+                  href='/privacy'
+                  class='text-primary underline underline-offset-2'
+                  >Privacy Policy</a
+                >.
+              </span>
+            </label>
+
+            <button type='submit' class='btn-primary w-full !py-3.5'>
+              Send enquiry
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</LandingLayout>
