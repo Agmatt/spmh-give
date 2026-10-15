@@ -4,28 +4,27 @@ export interface Campaign {
   id: string;
   slug: string;
   name: string;
-  /** Short line for cards */
   summary: string;
-  /** Full narrative for detail page */
   description: string;
-  /** One line, donor-facing — what changes */
   impact: string;
-  /** The gap, in one line */
   gap: string;
   target: number;
   raised: number;
   currency: 'KES';
   status: CampaignStatus;
+
+  /** Card + hero image */
   image: string;
   imageAlt: string;
-  /** Ordered — first is flagship */
+
+  /** Optional — detail page "gap" section image.
+   *  Leave blank to fall back to a gradient panel. */
+  gapImage?: string;
+  gapImageAlt?: string;
+
   order: number;
 }
 
-/**
- * `raised` must come from Supabase before launch.
- * While it's 0, the UI shows the goal only — never a fake percentage.
- */
 export const campaigns: Campaign[] = [
   {
     id: 'icu-hdu',
@@ -44,6 +43,9 @@ export const campaigns: Campaign[] = [
     status: 'active',
     image: '/gallery/22.png',
     imageAlt: 'Intensive care unit at St. Paul’s Mission Hospital',
+    gapImage: '/gallery/22.png', // ← change if you want a different photo
+    gapImageAlt:
+      'The corridor where critical patients are stabilised before referral',
     order: 1,
   },
   {
@@ -63,6 +65,8 @@ export const campaigns: Campaign[] = [
     status: 'active',
     image: '/img/13.jpg',
     imageAlt: 'Operating theatre at St. Paul’s Mission Hospital',
+    gapImage: '/img/13.jpg',
+    gapImageAlt: 'The current theatre complex at SPMH',
     order: 2,
   },
   {
@@ -82,6 +86,8 @@ export const campaigns: Campaign[] = [
     status: 'active',
     image: '/img/49.jpg',
     imageAlt: 'Maternity ward at St. Paul’s Mission Hospital',
+    gapImage: '/img/49.jpg',
+    gapImageAlt: 'The maternity ward where mothers deliver',
     order: 3,
   },
   {
@@ -101,6 +107,8 @@ export const campaigns: Campaign[] = [
     status: 'active',
     image: '/gallery/scan.jpg',
     imageAlt: 'Diagnostic imaging equipment',
+    gapImage: '/gallery/scan.jpg',
+    gapImageAlt: 'The X-ray and ultrasound room at SPMH',
     order: 4,
   },
   {
@@ -120,6 +128,8 @@ export const campaigns: Campaign[] = [
     status: 'planning',
     image: '/img/59.jpg',
     imageAlt: 'Dialysis unit',
+    gapImage: '/img/59.jpg',
+    gapImageAlt: 'The space prepared for the dialysis unit',
     order: 5,
   },
 ];
@@ -132,24 +142,4 @@ export const sortedCampaigns = [...campaigns].sort((a, b) => a.order - b.order);
 
 export function formatKes(amount: number): string {
   return `KES ${amount.toLocaleString('en-KE')}`;
-}
-
-export interface Campaign {
-  id: string;
-  slug: string;
-  name: string;
-  summary: string;
-  description: string;
-  impact: string;
-  gap: string;
-  target: number;
-  raised: number;
-  currency: 'KES';
-  status: CampaignStatus;
-  image: string;
-  imageAlt: string;
-  /** Optional — a photo of the space or equipment in question for the detail page */
-  gapImage?: string;
-  gapImageAlt?: string;
-  order: number;
 }
