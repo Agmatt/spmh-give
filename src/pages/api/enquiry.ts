@@ -51,7 +51,7 @@ function senderConfirmationHtml(params: {
       </div>
       <p style="font-size:14px;line-height:1.6;color:#475569;margin:24px 0 0;">
         If you need to reach us urgently, reply directly to this email or write
-        to <a href="mailto:${givingEmail}" style="color:#1565c0;text-decoration:underline;">${givingEmail}</a>.
+        to <a href="mailto:${escapeHtml(givingEmail)}" style="color:#1565c0;text-decoration:underline;">${escapeHtml(givingEmail)}</a>.
       </p>
       <p style="font-size:14px;line-height:1.6;color:#475569;margin:32px 0 0;">
         With gratitude,<br />
@@ -234,6 +234,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     }
 
     const enquiryId: string = inserted.id;
+
+    const apiKey = env.resendApiKey;
+    const toTeam = env.givingEmail;
+    const fromAddress = env.resendFrom;
 
     if (apiKey) {
       const headers = {
