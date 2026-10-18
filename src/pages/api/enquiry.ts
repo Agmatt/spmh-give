@@ -235,9 +235,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
     const enquiryId: string = inserted.id;
 
-    const apiKey = env.resendApiKey;
-    const toTeam = env.givingEmail;
-    const fromAddress = env.resendFrom;
     if (apiKey) {
       const headers = {
         Authorization: `Bearer ${apiKey}`,

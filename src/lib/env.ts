@@ -1,28 +1,14 @@
-import { config } from 'dotenv';
-import { resolve } from 'node:path';
-
-// Load .env from the project root explicitly. Works regardless of the
-// current working directory or when Vite/Astro decide to evaluate modules.
-config({ path: resolve(process.cwd(), '.env') });
-
-function pick(key: string, fallback = ''): string {
-  const v = process.env[key];
-  return v && v.trim() ? v.trim() : fallback;
-}
-
+// Server-side config. Locally these come from .env; on Vercel they come from
+// Settings → Environment Variables.
 export const env = {
-  supabaseUrl: pick('SUPABASE_URL'),
-  supabaseServiceRoleKey: pick('SUPABASE_SERVICE_ROLE_KEY'),
-  resendApiKey: pick('RESEND_API_KEY'),
-  givingEmail: pick('GIVING_EMAIL', 'giving@spmh.co.ke'),
-  resendFrom: pick('RESEND_FROM', 'SPMH Website <onboarding@resend.dev>'),
+  supabaseUrl: import.meta.env.SUPABASE_URL as string | undefined,
+  supabaseServiceRoleKey: import.meta.env.SUPABASE_SERVICE_ROLE_KEY as
+    | string
+    | undefined,
+  resendApiKey: import.meta.env.RESEND_API_KEY as string | undefined,
+  givingEmail:
+    (import.meta.env.GIVING_EMAIL as string | undefined) || 'giving@spmh.co.ke',
+  resendFrom:
+    (import.meta.env.RESEND_FROM as string | undefined) ||
+    'SPMH Website <onboarding@resend.dev>',
 };
-
-// One-time boot diagnostic. Remove after it works.
-console.log('[env] loaded', {
-  hasSupabaseUrl: !!env.supabaseUrl,
-  hasServiceRole: !!env.supabaseServiceRoleKey,
-  hasResendKey: !!env.resendApiKey,
-  givingEmail: env.givingEmail,
-  cwd: process.cwd(),
-});
