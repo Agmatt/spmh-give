@@ -30,9 +30,9 @@ const [featured, ...others] = sortedCampaigns;
 
           <h1
             class='display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-7 text-balance'>
-            Some patients we<br class='hidden sm:block' />
-            cannot save.<br />
-            <span class='italic font-normal text-primary'>Not yet.</span>
+            Some patients we 
+            cannot save.
+            <span class='italic font-normal text-primary'> Not yet.</span>
           </h1>
 
           <p
@@ -55,7 +55,7 @@ const [featured, ...others] = sortedCampaigns;
             </a>
             <a
               href='#campaigns'
-              class='btn-ghost !text-base !px-0 !text-primary hover:!bg-transparent hover:underline'>
+              class='btn-ghost !text-base hover:underline'>
               See what we&rsquo;re building →
             </a>
           </div>
@@ -97,7 +97,7 @@ const [featured, ...others] = sortedCampaigns;
   <!-- ============================================================
        REALITY STRIP — the numbers, editorial style
   ============================================================= -->
-  <section class='bg-white border-y border-line'>
+  <section class='bg-gray-100 '>
     <div class='container-prose'>
       <div
         class='grid grid-cols-2 lg:grid-cols-4 divide-x divide-line border-x border-line'>
@@ -131,7 +131,7 @@ const [featured, ...others] = sortedCampaigns;
         <div class='lg:col-span-7'>
           <p class='eyebrow-gold mb-5'>The work ahead</p>
           <h2 class='display text-3xl md:text-5xl mb-6 text-balance'>
-            Five things that would change everything.
+            Things that would change everything.
           </h2>
         </div>
         <div class='lg:col-span-5'>
@@ -272,11 +272,11 @@ const [featured, ...others] = sortedCampaigns;
         </blockquote>
       </div>
 
-      <div class='grid md:grid-cols-3 gap-px bg-line border border-line'>
+      <div class='grid md:grid-cols-3 gap-3'>
         {
           trustSignals.map((s) => (
-            <div class='bg-white p-8 md:p-10'>
-              <div class='inline-flex items-center justify-center w-10 h-10 text-primary mb-6'>
+            <div class='bg-gray-200 p-8 md:p-10 rounded-lg'>
+              <div class='inline-flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full text-primary mb-6'>
                 {s.icon === 'cross' && (
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -360,7 +360,7 @@ const [featured, ...others] = sortedCampaigns;
           </a>
           <a
             href='/contact-giving'
-            class='text-primary font-semibold hover:underline underline-offset-4'>
+            class='btn-ghost font-semibold hover:underline underline-offset-4'>
             Talk to our giving team →
           </a>
         </div>
@@ -368,9 +368,9 @@ const [featured, ...others] = sortedCampaigns;
         <p class='text-xs text-ink-soft mt-14 max-w-lg leading-relaxed'>
           By donating, you agree to our
           <a href='/terms-of-giving' class='underline hover:text-ink'
-            >Terms of Giving</a
+            > Terms of Giving</a
           > and
-          <a href='/privacy' class='underline hover:text-ink'>Privacy Policy</a
+          <a href='/privacy' class='underline hover:text-ink'> Privacy Policy</a
           >.
         </p>
       </div>
