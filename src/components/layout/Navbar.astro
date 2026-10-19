@@ -14,22 +14,25 @@ const isActive = (href: string) =>
       <!-- Brand -->
       <a
         href='/'
-        class='flex items-center gap-3 shrink-0'
+        class='flex items-center gap-2.5 min-w-0 flex-1 lg:flex-none lg:mr-6 mr-3'
         aria-label={`${site.name} — Give`}>
         <img
           src='/logos/logo.png'
           alt=''
-          class='h-9 w-9 md:h-10 md:w-10'
-          width='40'
-          height='40'
+          class='h-9 w-9 shrink-0'
+          width='36'
+          height='36'
         />
-        <span class='hidden sm:flex flex-col leading-tight'>
+        <span class='flex flex-col min-w-0 leading-tight'>
           <span
-            class='font-display font-semibold text-primary text-base md:text-lg'>
+            class='font-display font-semibold text-primary text-sm sm:text-base break-words'>
             {site.shortName}
-            <span class='text-accent'>Give</span>
           </span>
-          <span class='text-[11px] uppercase tracking-wider text-muted'>
+          <span class='text-accent text-xs font-bold uppercase tracking-wider'>
+            Give
+          </span>
+          <span
+            class='hidden sm:block text-[11px] uppercase tracking-wider text-muted'>
             Homa Bay
           </span>
         </span>
@@ -131,7 +134,7 @@ const isActive = (href: string) =>
     class='flex items-center justify-between px-5 h-16 border-b border-border shrink-0'>
     <span class='font-display font-semibold text-primary'>
       {site.shortName}
-      <span class='text-accent'>Give</span>
+      <span class='text-accent'> Give</span>
     </span>
     <button
       type='button'
