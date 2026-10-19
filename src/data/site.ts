@@ -1,19 +1,20 @@
 export const site = {
   name: "St. Paul's Mission Hospital",
-  shortName: 'SPMH',
+  shortName: "St. Paul's Mission Hospital",
   legalName: "St. Paul's Mission Hospital — Homa Bay",
   url: 'https://give.spmh.co.ke',
   mainSite: 'https://www.spmh.co.ke',
   trainingSite: 'https://training-and-research.spmh.co.ke',
 
   // Contact
-  givingEmail: 'giving@spmh.co.ke',
+  givingEmail: ' giving@spmh.co.ke',
   outreachEmail: 'outreach@spmh.co.ke',
   phone: '+254-111-817447', // TODO: confirm
 
   address: {
     physical: 'Homa Bay, Kenya',
-    postal: 'P.O. Box 46, Homa Bay', // TODO: confirm
+    postal: 'P.O. Box 46, Homa Bay',
+    email: 'info@spmh.co.ke', // TODO: confirm
     country: 'KE',
   },
 
