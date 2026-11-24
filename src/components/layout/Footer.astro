@@ -5,7 +5,7 @@ import { footerColumns, footerLegal } from '../../data/footer';
 const year = new Date().getFullYear();
 ---
 
-<footer class='bg-secondary text-white mt-24'>
+<footer class='bg-[#0E2A47] text-white mt-24'>
   <div class='container-prose py-14 md:py-20'>
     <div class='grid gap-10 md:grid-cols-4'>
       <!-- Brand + mission -->
@@ -28,36 +28,32 @@ const year = new Date().getFullYear();
           Homa Bay, serving ~250,000 people. Your gift funds the pathway to
           Level 5 care by 2030.
         </p>
-        {
-          site.kraPin !== 'TODO' && (
-            <p class='text-xs text-white/60'>
-              KRA PIN: <span class='font-mono'>{site.kraPin}</span>
-            </p>
-          )
-        }
+        {site.kraPin !== 'TODO' && (
+          <p class='text-xs text-white/60'>
+            KRA PIN: <span class='font-mono'>{site.kraPin}</span>
+          </p>
+        )}
       </div>
 
       <!-- Link columns -->
-      {
-        footerColumns.map((col) => (
-          <div>
-            <h3 class='text-white text-sm font-semibold uppercase tracking-wider mb-4'>
-              {col.heading}
-            </h3>
-            <ul class='space-y-2.5'>
-              {col.links.map((link) => (
-                <li>
-                  <a
-                    href={link.href}
-                    class='text-sm text-white/80 hover:text-gold transition-colors'>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
-      }
+      {footerColumns.map((col) => (
+        <div>
+          <h3 class='text-white text-sm font-semibold uppercase tracking-wider mb-4'>
+            {col.heading}
+          </h3>
+          <ul class='space-y-2.5'>
+            {col.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class='text-sm text-white/80 hover:text-gold transition-colors'>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
 
     <!-- Contact + legal -->
@@ -85,21 +81,18 @@ const year = new Date().getFullYear();
       <nav
         aria-label='Legal'
         class='flex flex-wrap gap-x-6 gap-y-2 md:justify-end text-sm'>
-        {
-          footerLegal.map((link) => (
-            <a
-              href={link.href}
-              class='text-white/80 hover:text-gold transition-colors'>
-              {link.label}
-            </a>
-          ))
-        }
+        {footerLegal.map((link) => (
+          <a
+            href={link.href}
+            class='text-white/80 hover:text-gold transition-colors'>
+            {link.label}
+          </a>
+        ))}
       </nav>
     </div>
 
     <!-- Bottom bar -->
-    <div
-      class='mt-10 pt-6 border-t border-white/15 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-white/60'>
+    <div class='mt-10 pt-6 border-t border-white/15 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-white/60'>
       <p>
         © {year}
         {site.legalName}. All rights reserved.

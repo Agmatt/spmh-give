@@ -1,0 +1,305 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import { reports } from '../data/impact';
+import { site } from '../data/site';
+
+const jsonLd = {
+  '@type': 'CollectionPage',
+  name: "Annual Reports — St. Paul's Mission Hospital",
+  description:
+    "Published annual reports and audited accounts for St. Paul's Mission Hospital, Homa Bay.",
+  url: `${site.url}/annual-reports`,
+};
+
+const hasReports = reports.length > 0;
+---
+
+<LandingLayout
+  title="Annual Reports"
+  description="Published annual reports and audited accounts for St. Paul's Mission Hospital."
+  canonical="/annual-reports"
+  jsonLd={jsonLd}
+>
+
+  <!-- ============================================================
+       BEAT 1 — HERO. Split. Copy left, image right.
+  ============================================================= -->
+  <section class="bg-cream border-b border-line">
+    <div class="grid lg:grid-cols-2">
+
+      <div class="flex items-center order-2 lg:order-1">
+        <div class="w-full px-6 md:px-10 lg:px-16 xl:px-24 py-16 md:py-24 lg:py-32">
+          <p class="eyebrow-gold mb-6">Receipts, in full</p>
+          <h1 class="display text-4xl md:text-5xl lg:text-6xl mb-6 text-balance">
+            Every shilling,<br />
+            in the open.
+          </h1>
+          <p class="text-lg text-ink-soft leading-relaxed mb-8 max-w-xl text-pretty">
+            Our annual report and audited accounts are published here every
+            year. Income, expenditure, capital projects, and governance — all
+            of it, in full.
+          </p>
+          <p class="text-base text-ink-soft leading-relaxed max-w-xl text-pretty">
+            No donor should have to take our word for anything. This is where
+            we show our work.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative min-h-[320px] sm:min-h-[420px] lg:min-h-[640px] bg-gradient-to-br from-secondary to-primary order-1 lg:order-2">
+        <img
+          src="/gallery/25.jpg"
+          alt="St. Paul's Mission Hospital Finance office"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 2 — STATUS. Honest about the current state.
+  ============================================================= -->
+  <section class="bg-white py-16 md:py-24 border-b border-line">
+    <div class="container-prose">
+
+      {hasReports ? (
+        <>
+          <!-- When reports exist — a clean list -->
+          <div class="grid lg:grid-cols-12 gap-8 mb-12 md:mb-16 items-end">
+            <div class="lg:col-span-7">
+              <p class="eyebrow-gold mb-5">Published reports</p>
+              <h2 class="display text-3xl md:text-5xl mb-5 text-balance">
+                Annual reports.
+              </h2>
+            </div>
+            <div class="lg:col-span-5">
+              <p class="text-base text-ink-soft leading-relaxed text-pretty">
+                Each report contains audited financial statements, income and
+                expenditure breakdowns, and a governance report from the Board.
+              </p>
+            </div>
+          </div>
+
+          <ul class="divide-y divide-line border-y border-line">
+            {reports.map((r) => (
+              <li>
+                <a
+                  href={r.pdfUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="group grid md:grid-cols-12 gap-4 md:gap-8 py-8 md:py-10 items-center hover:bg-surface/50 transition-colors duration-300 -mx-4 px-4"
+                >
+                  <div class="md:col-span-2">
+                    <p class="font-mono text-3xl md:text-4xl font-medium text-primary tabular-nums leading-none">
+                      {r.year}
+                    </p>
+                  </div>
+                  <div class="md:col-span-8">
+                    <h3 class="font-display text-lg md:text-xl font-semibold text-ink mb-2 leading-tight">
+                      {r.title}
+                    </h3>
+                    <p class="text-sm text-ink-soft leading-relaxed">
+                      {r.summary}
+                    </p>
+                  </div>
+                  <div class="md:col-span-2 md:text-right">
+                    <span class="inline-flex items-center gap-2 text-sm text-primary font-semibold group-hover:gap-3 transition-all">
+                      Download
+                      <span aria-hidden="true">↓</span>
+                    </span>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <>
+          <!-- When no reports exist yet — honest, warm, not apologetic -->
+          <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+
+            <div class="lg:col-span-5">
+              <p class="eyebrow-gold mb-5">Current status</p>
+              <h2 class="display text-3xl md:text-4xl mb-6 text-balance">
+                The 2025/26 report is being finalised.
+              </h2>
+              <p class="text-base text-ink-soft leading-relaxed mb-6 text-pretty">
+                Our Finance office is preparing the annual report and audited
+                accounts. When they are approved by the Board, they will be
+                published here.
+              </p>
+              <p class="text-base text-ink-soft leading-relaxed text-pretty">
+                In the meantime, you can request a copy directly and we will
+                send it to you as soon as it is available.
+              </p>
+            </div>
+
+            <div class="lg:col-span-6 lg:col-start-7">
+              <div class="bg-surface border border-line p-8 md:p-10">
+                <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-ink-soft mb-6">
+                  Request a copy
+                </p>
+
+                <div class="space-y-6">
+                  <div>
+                    <p class="text-sm font-semibold text-ink mb-2">
+                      Latest annual report
+                    </p>
+                    <p class="text-sm text-ink-soft leading-relaxed mb-3">
+                      We&rsquo;ll email you the most recent published report as
+                      soon as it is released.
+                    </p>
+                    <a
+                      href={`mailto:${site.givingEmail}?subject=Annual report request`}
+                      class="text-sm text-primary font-semibold hover:underline underline-offset-4"
+                    >
+                      Request by email →
+                    </a>
+                  </div>
+
+                  <div class="pt-6 border-t border-line">
+                    <p class="text-sm font-semibold text-ink mb-2">
+                      Current financial information
+                    </p>
+                    <p class="text-sm text-ink-soft leading-relaxed mb-3">
+                      For specific financial questions about income, expenditure,
+                      or a project you have funded, reach our Finance office
+                      directly.
+                    </p>
+                    <a
+                      href={`mailto:${site.givingEmail}?subject=Financial information request`}
+                      class="text-sm text-primary font-semibold hover:underline underline-offset-4"
+                    >
+                      Contact Finance →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 3 — WHAT EVERY REPORT CONTAINS
+  ============================================================= -->
+  <section class="bg-cream py-16 md:py-24 border-b border-line">
+    <div class="container-prose">
+
+      <div class="max-w-2xl mb-12 md:mb-16">
+        <p class="eyebrow-gold mb-5">What you&rsquo;ll find inside</p>
+        <h2 class="display text-3xl md:text-5xl mb-5 text-balance">
+          Five things in every report.
+        </h2>
+      </div>
+
+      <ul class="grid sm:grid-cols-2 gap-px bg-line border border-line">
+        {[
+          {
+            n: '01',
+            title: 'Audited financial statements',
+            body: 'Independently audited by a registered Kenyan firm. Signed, dated, available in full.',
+          },
+          {
+            n: '02',
+            title: 'Income by source',
+            body: 'Insurance reimbursements, out-of-pocket payments, donations, and faith-based subsidies — each broken out separately.',
+          },
+          {
+            n: '03',
+            title: 'Expenditure by programme',
+            body: 'Clinical services, workforce, infrastructure, community health — where every shilling was spent, and why.',
+          },
+          {
+            n: '04',
+            title: 'Capital projects',
+            body: 'Progress against each named campaign — what was funded, what was built, what remains.',
+          },
+          {
+            n: '05',
+            title: 'Governance report',
+            body: 'Board oversight, key decisions, and the areas where we fell short. Even the hard parts.',
+          },
+        ].map((p) => (
+          <li class="bg-cream p-8 md:p-10 flex flex-col">
+            <p class="font-mono text-xs font-semibold text-primary mb-6 tabular-nums">{p.n}</p>
+            <h3 class="font-display text-lg font-semibold text-ink mb-3 leading-tight">{p.title}</h3>
+            <p class="text-sm text-ink-soft leading-relaxed flex-1">{p.body}</p>
+          </li>
+        ))}
+
+        <!-- Last card is a small CTA panel to balance the 5-item grid -->
+        <li class="bg-secondary text-white p-8 md:p-10 flex flex-col">
+          <p class="eyebrow-gold !text-gold mb-6 text-[11px]">Questions?</p>
+          <h3 class="font-display text-lg font-semibold text-white mb-3 leading-tight">
+            Ask us anything.
+          </h3>
+          <p class="text-sm text-white/75 leading-relaxed mb-6 flex-1">
+            If there&rsquo;s something you want to understand about our finances,
+            we&rsquo;ll tell you.
+          </p>
+          <a
+            href={`mailto:${site.givingEmail}?subject=Annual report question`}
+            class="text-sm text-gold font-semibold hover:underline underline-offset-4"
+          >
+            Email the giving team →
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 4 — TRUST CLOSE. Three quiet promises.
+  ============================================================= -->
+  <section class="bg-white py-16 md:py-24">
+    <div class="container-prose">
+
+      <div class="max-w-3xl mx-auto text-center mb-14 md:mb-16">
+        <p class="eyebrow-gold mb-6 justify-center">Why we publish</p>
+        <blockquote class="font-display text-2xl md:text-4xl font-medium leading-[1.25] text-ink text-balance" style="letter-spacing: -0.02em;">
+          &ldquo;A donor should be able to check our work,
+          <em class="not-italic text-primary">not just trust our word.</em>&rdquo;
+        </blockquote>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-px bg-line border border-line">
+        {[
+          {
+            n: '01',
+            title: 'Published every year',
+            body: 'We commit to publishing an annual report and audited accounts within six months of the end of each financial year.',
+          },
+          {
+            n: '02',
+            title: 'Free to download',
+            body: 'No login, no email capture, no gatekeeping. Every report is a direct PDF download.',
+          },
+          {
+            n: '03',
+            title: 'Full disclosure',
+            body: 'We report income, expenditure, capital projects, and governance outcomes — including the areas where we did not meet our targets.',
+          },
+        ].map((p) => (
+          <div class="bg-white p-8 md:p-10 flex flex-col">
+            <p class="font-mono text-xs font-semibold text-primary mb-6 tabular-nums">{p.n}</p>
+            <h3 class="font-display text-lg font-semibold text-ink mb-3 leading-tight">{p.title}</h3>
+            <p class="text-sm text-ink-soft leading-relaxed flex-1">{p.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 md:mt-16 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-center">
+        <a href="/how-it-helps" class="text-primary font-semibold hover:underline underline-offset-4">
+          How donations are used →
+        </a>
+        <a href="/donate" class="text-primary font-semibold hover:underline underline-offset-4">
+          Give today →
+        </a>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

@@ -1,0 +1,343 @@
+---
+import LandingLayout from '../layout/LandingLayout.astro';
+import { site } from '../data/site';
+
+const jsonLd = {
+  '@type': 'WebPage',
+  name: "Diaspora Giving — St. Paul's Mission Hospital",
+  description:
+    "Give to St. Paul's Mission Hospital from anywhere in the world. Every gift reaches Homa Bay.",
+  url: `${site.url}/diaspora`,
+};
+---
+
+<LandingLayout
+  title='Diaspora Giving'
+  description="Give to St. Paul's Mission Hospital from anywhere in the world — supporting healthcare in Homa Bay County."
+  canonical='/diaspora'
+  jsonLd={jsonLd}>
+  <!-- ============================================================
+       BEAT 1 — HERO. Full-bleed.
+  ============================================================= -->
+  <section
+    class='relative min-h-[520px] md:min-h-[640px] lg:min-h-[680px] flex items-end overflow-hidden'>
+    <img
+      src='/img/22.jpg'
+      alt="A family at St. Paul's Mission Hospital"
+      class='absolute inset-0 w-full h-full object-cover'
+      loading='eager'
+      fetchpriority='high'
+    />
+    <div
+      class='absolute inset-0 bg-gradient-to-t from-secondary via-secondary/60 to-secondary/20'
+      aria-hidden='true'>
+    </div>
+
+    <div class='relative container-prose pb-16 md:pb-24 pt-40'>
+      <div class='max-w-3xl'>
+        <p class='eyebrow-gold !text-gold mb-6'>Kenyans abroad</p>
+        <h1
+          class='font-display text-3xl md:text-5xl lg:text-6xl font-medium text-white leading-[1.05] tracking-tight mb-6 text-balance'
+          style='letter-spacing: -0.028em;'>
+          Home is never far.
+        </h1>
+        <p
+          class='text-lg md:text-xl text-white/85 leading-relaxed max-w-2xl text-pretty'>
+          From London to Toronto, Dubai to Sydney — Kenyans abroad give back
+          more than anyone. Your gift to SPMH reaches a family in Homa Bay in
+          the time it takes you to send it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 2 — WHY SPMH. Straight talk.
+  ============================================================= -->
+  <section class='bg-cream py-16 md:py-24 border-b border-line'>
+    <div class='container-prose'>
+      <div class='grid lg:grid-cols-12 gap-10 lg:gap-16 items-start'>
+        <div class='lg:col-span-5 lg:sticky lg:top-28 lg:self-start'>
+          <p class='eyebrow-gold mb-5'>Why SPMH</p>
+          <h2 class='display text-3xl md:text-4xl mb-6 text-balance'>
+            Why give through us.
+          </h2>
+          <p class='text-base text-ink-soft leading-relaxed text-pretty'>
+            Many Kenyans abroad send money home directly to family. That stays
+            essential. Giving to SPMH is different — it strengthens the whole
+            health system that your family depends on.
+          </p>
+        </div>
+
+        <div class='lg:col-span-6 lg:col-start-7'>
+          <ul class='space-y-8'>
+            {
+              [
+                {
+                  t: 'Money reaches the hospital',
+                  d: 'Every gift is receipted by our Finance office and applied to the clinical need you designated. No overheads skimmed abroad.',
+                },
+                {
+                  t: 'A receipt you can trust',
+                  d: 'Official SPMH receipt with a unique number and KRA details, sent to your email within 48 hours.',
+                },
+                {
+                  t: 'For the family you left at home',
+                  d: 'Your gift funds the maternity ward, the emergency room, the diagnostic equipment — the exact services your relatives will need someday.',
+                },
+                {
+                  t: 'You can give anonymously',
+                  d: 'Many diaspora donors prefer not to be named. That choice is always honoured.',
+                },
+              ].map((item, i) => (
+                <li class='grid grid-cols-[auto_1fr] gap-5'>
+                  <span class='shrink-0 font-mono text-xs font-semibold text-primary tabular-nums pt-1.5'>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h3 class='font-display text-lg font-semibold text-ink mb-2 leading-tight'>
+                      {item.t}
+                    </h3>
+                    <p class='text-sm text-ink-soft leading-relaxed'>
+                      {item.d}
+                    </p>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 3 — HOW TO GIVE FROM ABROAD
+  ============================================================= -->
+  <section class='bg-white py-16 md:py-24 border-b border-line'>
+    <div class='container-prose'>
+      <div class='max-w-2xl mb-12 md:mb-16'>
+        <p class='eyebrow-gold mb-5'>Give from abroad</p>
+        <h2 class='display text-3xl md:text-5xl mb-5 text-balance'>
+          Three ways to give, wherever you are.
+        </h2>
+      </div>
+
+      <div class='grid md:grid-cols-3 gap-5 md:gap-6'>
+        <!-- Bank / SWIFT -->
+        <div class='bg-white border border-line flex flex-col'>
+          <div
+            class='flex items-center justify-between px-6 py-5 border-b border-line'>
+            <div class='flex items-center gap-3'>
+              <span
+                class='inline-flex items-center justify-center w-9 h-9 bg-surface-2'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  stroke-width='1.5'
+                  class='w-5 h-5 text-primary'>
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    d='M3 10h18M5 6h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z'
+                  ></path>
+                  <circle cx='12' cy='14' r='2'></circle>
+                </svg>
+              </span>
+              <p class='font-display font-semibold text-ink leading-tight'>
+                Bank / SWIFT
+              </p>
+            </div>
+          </div>
+          <div class='p-6 flex-1 flex flex-col'>
+            <span
+              class='inline-block self-start text-[10px] font-bold uppercase tracking-[0.18em] text-primary bg-surface-2 px-2.5 py-1 mb-5'>
+              Available now
+            </span>
+            <p class='text-sm text-ink-soft leading-relaxed mb-4 flex-1'>
+              Send USD or KES via SWIFT direct to our Co-operative Bank account.
+              Works from any country.
+            </p>
+            <a
+              href='/donate'
+              class='text-sm text-primary font-semibold hover:underline underline-offset-4'>
+              Get bank details →
+            </a>
+          </div>
+        </div>
+
+        <!-- M-Pesa -->
+        <div class='bg-white border border-line flex flex-col'>
+          <div
+            class='flex items-center justify-between px-6 py-5 border-b border-line'>
+            <div class='flex items-center gap-3'>
+              <span
+                class='inline-flex items-center justify-center w-9 h-9 bg-green-50'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 24 24'
+                  fill='currentColor'
+                  class='w-5 h-5 text-green-700'>
+                  <path
+                    d='M10.5 18.75a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z'
+                  ></path>
+                  <path
+                    fill-rule='evenodd'
+                    d='M8.625.75A3.375 3.375 0 0 0 5.25 4.125v15.75a3.375 3.375 0 0 0 3.375 3.375h6.75a3.375 3.375 0 0 0 3.375-3.375V4.125A3.375 3.375 0 0 0 15.375.75h-6.75ZM7.5 4.125C7.5 3.504 8.004 3 8.625 3H9.75v.375c0 .621.504 1.125 1.125 1.125h2.25c.621 0 1.125-.504 1.125-1.125V3h1.125c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-6.75A1.125 1.125 0 0 1 7.5 19.875V4.125Z'
+                    clip-rule='evenodd'></path>
+                </svg>
+              </span>
+              <p class='font-display font-semibold text-ink leading-tight'>
+                M-Pesa
+              </p>
+            </div>
+          </div>
+          <div class='p-6 flex-1 flex flex-col'>
+            <span
+              class='inline-block self-start text-[10px] font-bold uppercase tracking-[0.18em] text-green-700 bg-green-50 px-2.5 py-1 mb-5'>
+              For family back home
+            </span>
+            <p class='text-sm text-ink-soft leading-relaxed mb-4 flex-1'>
+              If you have M-Pesa access through a Kenyan line, you can give
+              directly via our Till. Perfect if a relative is giving on your
+              behalf.
+            </p>
+            <a
+              href='/donate'
+              class='text-sm text-primary font-semibold hover:underline underline-offset-4'>
+              See Till number →
+            </a>
+          </div>
+        </div>
+
+        <!-- Card / PayPal -->
+        <div class='bg-white border border-line flex flex-col'>
+          <div
+            class='flex items-center justify-between px-6 py-5 border-b border-line'>
+            <div class='flex items-center gap-3'>
+              <span
+                class='inline-flex items-center justify-center w-9 h-9 bg-surface-2'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  stroke-width='1.5'
+                  class='w-5 h-5 text-primary'>
+                  <rect x='2.25' y='5.25' width='19.5' height='13.5' rx='2.25'
+                  ></rect>
+                  <path d='M2.25 10.5h19.5'></path>
+                </svg>
+              </span>
+              <p class='font-display font-semibold text-ink leading-tight'>
+                Card &amp; PayPal
+              </p>
+            </div>
+          </div>
+          <div class='p-6 flex-1 flex flex-col'>
+            <span
+              class='inline-block self-start text-[10px] font-bold uppercase tracking-[0.18em] text-ink-soft bg-surface px-2.5 py-1 mb-5'>
+              Coming soon
+            </span>
+            <p class='text-sm text-ink-soft leading-relaxed mb-4 flex-1'>
+              Visa, Mastercard, Amex in your local currency — and PayPal for
+              USD, GBP, EUR, CAD, AUD.
+            </p>
+            <a
+              href={`mailto:${site.givingEmail}?subject=Diaspora card giving interest`}
+              class='text-sm text-primary font-semibold hover:underline underline-offset-4'>
+              Get notified when live →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 4 — MONTHLY GIVING
+  ============================================================= -->
+  <section class='bg-secondary text-white py-16 md:py-24'>
+    <div class='container-prose'>
+      <div class='grid lg:grid-cols-12 gap-10 lg:gap-16 items-start'>
+        <div class='lg:col-span-5'>
+          <p class='eyebrow-gold !text-gold mb-5'>Monthly giving</p>
+          <h2
+            class='font-display text-3xl md:text-4xl font-medium text-white leading-[1.1] mb-6 text-balance'
+            style='letter-spacing: -0.025em;'>
+            A standing order from your bank abroad.
+          </h2>
+          <p class='text-base text-white/75 leading-relaxed text-pretty'>
+            The simplest way to give from abroad is a monthly standing order
+            from your local bank. You control it, you can cancel it any time,
+            and we send one consolidated annual receipt for tax purposes.
+          </p>
+        </div>
+
+        <div class='lg:col-span-6 lg:col-start-7'>
+          <ol class='space-y-6'>
+            {
+              [
+                'Email us at the address below with "standing order" in the subject.',
+                'We send you a one-page form with our SWIFT details and reference.',
+                'You set up the standing order with your bank.',
+                'We confirm by email, and your gift arrives monthly.',
+              ].map((s, i) => (
+                <li class='flex gap-5'>
+                  <span class='shrink-0 w-8 h-8 flex items-center justify-center font-mono text-xs font-semibold text-gold border border-gold/40 tabular-nums'>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <p class='text-base text-white/85 leading-relaxed pt-1.5'>
+                    {s}
+                  </p>
+                </li>
+              ))
+            }
+          </ol>
+
+          <div class='mt-10'>
+            <a
+              href={`mailto:${site.givingEmail}?subject=Standing order from abroad`}
+              class='btn-primary !bg-gold !text-secondary hover:!bg-white'>
+              Request a standing order form
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEAT 5 — CTA
+  ============================================================= -->
+  <section class='bg-cream py-16 md:py-24'>
+    <div class='container-prose'>
+      <div class='max-w-3xl'>
+        <p class='eyebrow-gold mb-6'>Talk to us</p>
+        <h2 class='display text-3xl md:text-5xl mb-6 text-balance'>
+          If you have questions, we&rsquo;re one email away.
+        </h2>
+        <p
+          class='text-lg text-ink-soft leading-relaxed mb-10 max-w-2xl text-pretty'>
+          Whether you want to give once, set up monthly giving, or discuss a
+          larger contribution toward a specific campaign — reach the giving team
+          directly.
+        </p>
+        <div class='flex flex-wrap items-center gap-x-8 gap-y-4'>
+          <a
+            href={`mailto:${site.givingEmail}?subject=Diaspora giving enquiry`}
+            class='btn-primary !px-7 !py-3.5 !text-base'>
+            Email the giving team
+          </a>
+          <a
+            href='/how-it-helps'
+            class='text-primary font-semibold hover:underline underline-offset-4'>
+            See where gifts go →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

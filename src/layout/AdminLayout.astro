@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const pathname = Astro.url.pathname;
+
+const navItems = [
+  { label: 'Overview', href: '/admin' },
+  { label: 'Donations', href: '/admin/donations' },
+  { label: 'Enquiries', href: '/admin/enquiries' },
+];
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>{title} — SPMH Admin</title>
+    <link rel='icon' type='image/png' href='/file.svg' />
+  </head>
+  <body class='bg-surface min-h-screen flex'>
+    <!-- Sidebar -->
+    <aside
+      class='w-64 bg-secondary text-white flex flex-col hidden md:flex fixed h-full'>
+      <div class='h-20 flex items-center px-6 border-b border-white/10'>
+        <span class='font-display font-semibold text-lg text-white'
+          >SPMH Admin</span
+        >
+      </div>
+      <nav class='flex-1 py-6 px-3 space-y-1'>
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                'block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors',
+                pathname === item.href
+                  ? 'bg-white/10 text-white'
+                  : 'text-white/60 hover:text-white hover:bg-white/5',
+              ]}>
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class='p-4 border-t border-white/10'>
+        <button
+          id='logout-btn'
+          class='block w-full text-left px-4 py-2 text-sm text-white/60 hover:text-white'>
+          Sign out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class='flex-1 md:ml-64 p-8'>
+      <header class='mb-8 flex justify-between items-center'>
+        <h1 class='font-display text-2xl font-semibold text-ink'>{title}</h1>
+      </header>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<script>
+  import { createSupabaseBrowserClient } from '../lib/supabase-browser';
+
+  document.getElementById('logout-btn')?.addEventListener('click', async () => {
+    const supabase = createSupabaseBrowserClient();
+    await supabase.auth.signOut();
+    window.location.href = '/admin/login';
+  });
+</script>
